@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ScoopThrown : MonoBehaviour {
+public class ThrownScoop : MonoBehaviour {
 
     public GameObject diePrefab;
     public GameObject dropPrefab;
@@ -58,7 +58,7 @@ public class ScoopThrown : MonoBehaviour {
     void CreateDeathPrefabInstance()
     {
         var d = Instantiate<GameObject>(diePrefab);
-        d.GetComponent<ParticleFade>().SetTime(0.2f);
+        d.GetComponent<ParticleFade>().SetTime(0.05f);
         d.transform.position = transform.position;
         d.transform.localScale = transform.localScale;
         d.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
@@ -91,11 +91,7 @@ public class ScoopThrown : MonoBehaviour {
     void SpawnDrop(float _mass, float _angle)
     {
         var o = Instantiate<GameObject>(dropPrefab);
-        var len = 0.5f * (Random.value * 2 - 1);
-        var diff = Vector3.zero;// new Vector3(len * Mathf.Cos(_angle + Mathf.PI / 2), len * Mathf.Sin(_angle + Mathf.PI / 2));
-        o.GetComponent<Drop>().Initialize(transform.position + diff, GetComponent<SpriteRenderer>().sprite, _mass, isTopScoop);
-        //Debug.Log("angle: " + _angle);
-        //o.GetComponent<Drop>().LaunchDirection(transform.position, 10, _angle + Mathf.PI / 8 * (-1 + 2 * Random.value));
+        o.GetComponent<Drop>().Initialize(transform.position, GetComponent<SpriteRenderer>().sprite, _mass, isTopScoop);
         o.GetComponent<Drop>().LaunchRandomRadially(transform.position, 5 * Random.value + 10f);
     }
 }

@@ -119,7 +119,7 @@ public class Player : MonoBehaviour {
                 if (Input.GetMouseButtonUp(0))//GetKeyUp(KeyCode.Z) && p.topScoopReadyToThrow)
                 {
                     var o = Instantiate<GameObject>(p.topScoopThrowPrefab);
-                    o.GetComponent<ScoopThrown>().ResetScaleToMass();
+                    o.GetComponent<ThrownScoop>().ResetScaleToMass();
                     o.transform.position = p.topScoopTo;
                     o.GetComponent<Rigidbody>().mass = p.topScoopMass;
                     p.topScoopMass -= o.GetComponent<Rigidbody>().mass;
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour {
             if (Input.GetMouseButtonUp(1))//GetKeyUp(KeyCode.X) && p.middleScoopReadyToThrow)
             {
                 var o = Instantiate<GameObject>(p.middleScoopThrowPrefab);
-                o.GetComponent<ScoopThrown>().ResetScaleToMass();
+                o.GetComponent<ThrownScoop>().ResetScaleToMass();
                 o.transform.position = p.middleScoopTo;
                 o.GetComponent<Rigidbody>().mass = Mathf.Min(Mathf.Max(p.middleScoopMass / 2f, 0.5f), p.middleScoopMass);
                 p.middleScoopMass -= o.GetComponent<Rigidbody>().mass;
@@ -144,7 +144,7 @@ public class Player : MonoBehaviour {
                 var angleToMouse = Utils.GetAngleToMouse(o.transform.position);
                 o.GetComponent<Rigidbody>().velocity = new Vector3(Mathf.Cos(angleToMouse), Mathf.Sin(angleToMouse)) * p.middleScoopLaunchVelocity;// + p.GetComponent<Rigidbody>().velocity;
 
-                o.GetComponent<ScoopThrown>().ExplodeInDirection();
+                o.GetComponent<ThrownScoop>().ExplodeInDirection();
 
                 p.middleScoopReadyToThrow = false;
             }
