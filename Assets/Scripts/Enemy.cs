@@ -44,6 +44,12 @@ public class Enemy : MonoBehaviour {
         return rb().velocity.x != 0;
     }
 
+    // when this enemy is destroyed/killed
+    void OnDestroy() {
+        // track difficulty
+        EnemyManager.S.currentDifficulty -= this.difficulty;
+    }
+
     public SpriteRenderer sprend() { return GetComponent<SpriteRenderer>(); }
     public Rigidbody rb() { return GetComponent<Rigidbody>(); }
 }

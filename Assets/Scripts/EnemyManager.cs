@@ -4,16 +4,15 @@ using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour {
     public string[] enemySpawnerNames; // the names of the enemy spawners placed on the stage
+    public GameObject[] enemies; // the enemies that are available to be spawned
 
     public float waveInterval = 30f; // the time interval between wave spawns (this is not a rest period, it always ticks down)
-
-    public GameObject[] enemies; // the enemies that are available to be spawned
+    public int currentDifficulty = 0; // tracks the current difficulty of the stage
 
     public static EnemyManager S = null; // the singleton for this class
 
     private GameObject[] enemySpawnerGOs; // the actual game objects of the enemy spawners
     private int targetDifficulty = 0; // the difficulty that the manager aspires to reach
-    private int currentDifficulty = 0; // tracks the current difficulty of the stage
     private int waveNumber = 0; // this is the current wave number
 
 	// contains initialization subroutines for enemy management
@@ -37,7 +36,7 @@ public class EnemyManager : MonoBehaviour {
     // This modifies the target difficulty depending on which wave is being fought
     void NewWave() {
         this.waveNumber++; // increment the wave counter
-        this.targetDifficulty = WaveDifficulty(this.waveNumber); // set the difficulty to the difficulty of the new wave
+        this.targetDifficulty = currentDifficulty + WaveDifficulty(this.waveNumber); // set the difficulty to the difficulty of the new wave
         SpawnEnemies();
     }
 
