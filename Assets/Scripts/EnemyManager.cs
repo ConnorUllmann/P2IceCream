@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour {
     // This modifies the target difficulty depending on which wave is being fought
     void NewWave() {
         this.waveNumber++; // increment the wave counter
-        this.targetDifficulty = waveNumber; // this statement determines how difficult each wave is
+        this.targetDifficulty = WaveDifficulty(this.waveNumber); // set the difficulty to the difficulty of the new wave
         SpawnEnemies();
     }
 
@@ -116,6 +116,11 @@ public class EnemyManager : MonoBehaviour {
         }
 
         return minSpawner; // return the chosen spawner
+    }
+
+    // given a wave number, it returns the target difficulty of the wave
+    int WaveDifficulty(int wave) {
+        return wave; // right now, the wave difficulty is equivalent to the wave number
     }
 	
 	// Update is called once per frame
