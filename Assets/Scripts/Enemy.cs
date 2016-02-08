@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-    public int difficulty = 3; // the estimated difficulty of this enemy
+    public int difficulty = 1; // the estimated difficulty of this enemy
     public int waveRequirement = 1; // the wave at which this enemy begins to spawn
     public int spawnWeight = 10; // the relative frequency at which this enemy spawns
 

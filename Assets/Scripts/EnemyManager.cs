@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour {
-
-    public int targetDifficulty = 10; // the difficulty that the manager aspires to reach
     public string[] enemySpawnerNames; // the names of the enemy spawners placed on the stage
 
     public float waveInterval = 30f; // the time interval between wave spawns (this is not a rest period, it always ticks down)
@@ -14,7 +12,8 @@ public class EnemyManager : MonoBehaviour {
     public static EnemyManager S = null; // the singleton for this class
 
     private GameObject[] enemySpawnerGOs; // the actual game objects of the enemy spawners
-    private int currentDifficulty = 10; // tracks the current difficulty of the stage
+    private int targetDifficulty = 0; // the difficulty that the manager aspires to reach
+    private int currentDifficulty = 0; // tracks the current difficulty of the stage
     private int waveNumber = 0; // this is the current wave number
 
 	// contains initialization subroutines for enemy management
@@ -38,7 +37,7 @@ public class EnemyManager : MonoBehaviour {
     // This modifies the target difficulty depending on which wave is being fought
     void NewWave() {
         this.waveNumber++; // increment the wave counter
-        this.targetDifficulty = currentDifficulty + 5 * waveNumber + (waveNumber * waveNumber) / 2; // this statement determines the difficulty increase per wave
+        this.targetDifficulty = waveNumber; // this statement determines how difficult each wave is
         SpawnEnemies();
     }
 
@@ -50,10 +49,12 @@ public class EnemyManager : MonoBehaviour {
         }
 
         while (targetDifficulty - currentDifficulty > 0) { // until the game is at the correct difficulty
+            print("Difficulty: " + this.currentDifficulty);
+            print("Target: " + this.targetDifficulty);
             GameObject newEnemy = ChooseEnemy(); // choose an appropriate enemy
             GameObject spawner = ChooseSpawner(); // choose an appropriate spawner
             spawner.GetComponent<EnemySpawner>().QueueEnemy(newEnemy); // add the enemy to the spawn queue
-            currentDifficulty = newEnemy.GetComponent<Enemy>().difficulty; // update the current difficulty to reflect the change
+            this.currentDifficulty += newEnemy.GetComponent<Enemy>().difficulty; // update the current difficulty to reflect the change
         }
     }
 
@@ -63,8 +64,12 @@ public class EnemyManager : MonoBehaviour {
         List<GameObject> validEnemies = new List<GameObject>();
         int totalWeight = 0;
         foreach (GameObject enemy in this.enemies) {
+            print(enemy.GetComponent<Enemy>().waveRequirement <= this.waveNumber);
+            print(enemy.GetComponent<Enemy>().difficulty <= targetDifficulty - currentDifficulty);
+            print(enemy.GetComponent<Enemy>().difficulty);
+            print(targetDifficulty - currentDifficulty);
             if (enemy.GetComponent<Enemy>().waveRequirement <= this.waveNumber // if the enemy can spawn this wave
-                            && enemy.GetComponent<Enemy>().difficulty < targetDifficulty - currentDifficulty) { // and we have enough free difficulty units
+                            && enemy.GetComponent<Enemy>().difficulty <= targetDifficulty - currentDifficulty) { // and we have enough free difficulty units
                 validEnemies.Add(enemy); // add the enemy as an option
                 totalWeight += enemy.GetComponent<Enemy>().spawnWeight; // add its weight to the total spawn weight
             }

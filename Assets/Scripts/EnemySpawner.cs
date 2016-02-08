@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
 
-    public float spawnInterval = 1f; // how often (in seconds) the spawner can spawn an enemy
+    public float spawnInterval = 3f; // how often (in seconds) the spawner can spawn an enemy
 
     private Queue<GameObject> spawnQueue = new Queue<GameObject>(); // the enemies that are queued to spawn
 
@@ -36,8 +36,6 @@ public class EnemySpawner : MonoBehaviour {
         if (spawnQueue.Count == 0) {
             return;
         }
-
-        print("Spawning Enemy");
 
         // spawn an enemy
         GameObject enemy = spawnQueue.Dequeue();
