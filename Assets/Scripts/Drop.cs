@@ -4,7 +4,14 @@ using System.Collections;
 
 public class Drop : MonoBehaviour {
 
-    public bool isTopScoop;
+    public enum IceCream { Brown, White, Pink };
+    public static float[] massNormals = new float[3] { 3, 2, 1 };
+    public static float[] sizeMults = new float[3] { 2, 1.5f, 1 };
+    public Sprite[] sprites;
+    
+    public IceCream type;
+    private float scoopMassNormal;
+    private float scoopSizeMult;
 
     public GameObject diePrefab;
     public GameObject playerTrigger;
@@ -22,14 +29,16 @@ public class Drop : MonoBehaviour {
         GetComponent<SphereCollider>().enabled = false;
         timeStart = Time.time;
         playerTrigger.GetComponent<PlayerTrigger>().drop = this;
-	}
+    }
 
-    public void Initialize(Vector3 _position, Sprite _sprite, float _mass, bool _isTopScoop)
+    public void Initialize(Vector3 _position, float _mass, IceCream _type)
     {
         lastPos = transform.position = _position;
-        GetComponent<SpriteRenderer>().sprite = _sprite;
+        GetComponent<SpriteRenderer>().sprite = sprites[(int)_type];
         GetComponent<Rigidbody>().mass = _mass;
-        isTopScoop = _isTopScoop;
+        type = _type;
+        scoopMassNormal = massNormals[(int)type];
+        scoopSizeMult = sizeMults[(int)type];
         ResetScaleToMass();
     }
 
@@ -42,7 +51,8 @@ public class Drop : MonoBehaviour {
             ResetScaleToMass();
         }
 
-        if(readyForPickup && (transform.position - Player.S.transform.position).magnitude <= 2f * (playerTrigger.GetComponent<SphereCollider>().radius + Player.S.GetComponent<SphereCollider>().radius))
+        if(readyForPickup && Player.S.hurtTimer <= 0 && 
+          (transform.position - Player.S.transform.position).magnitude <= 2f * (playerTrigger.GetComponent<SphereCollider>().radius + Player.S.GetComponent<SphereCollider>().radius))
         {
             transform.position = (Player.S.transform.position - transform.position) * 0.25f + transform.position;
             GetComponent<Rigidbody>().isKinematic = false;
@@ -53,8 +63,8 @@ public class Drop : MonoBehaviour {
 
     void ResetScaleToMass()
     {
-        var n = Mathf.Pow(GetComponent<Rigidbody>().mass, 0.3333f) / Mathf.Pow(isTopScoop ? Player.S.topScoopMassNormal : Player.S.middleScoopMassNormal, 0.3333f);
-        playerTrigger.GetComponent<SphereCollider>().radius = n / 2 * (isTopScoop ? 1f : 1.5f);
+        var n = Mathf.Pow(GetComponent<Rigidbody>().mass, 0.3333f) / Mathf.Pow(scoopMassNormal, 0.3333f);
+        playerTrigger.GetComponent<SphereCollider>().radius = n / 2 * scoopSizeMult;
         GetComponent<SpriteRenderer>().transform.localScale = n * Vector3.one;
     }
 
@@ -65,7 +75,7 @@ public class Drop : MonoBehaviour {
             readyForPickup = true;
 
             RaycastHit hitInfo;
-            if(Physics.Raycast(lastPos, transform.position - lastPos, out hitInfo, GetComponent<Rigidbody>().velocity.magnitude * 10f))
+            if(Physics.Raycast(lastPos, transform.position - lastPos, out hitInfo, GetComponent<Rigidbody>().velocity.magnitude * 2f))
                 transform.position = hitInfo.point;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             //GetComponent<Rigidbody>().useGravity = false;

@@ -1,0 +1,45 @@
+using UnityEngine;
+using System.Collections;
+
+public class Enemy : MonoBehaviour {
+
+    public Vector3? target;
+    public int direction = 1;
+    public int directionToTarget { get { if (!target.HasValue) return 0; return Utils.Sign(target.Value.x - transform.position.x); } }
+    public float distanceToTarget()
+    {
+        if (!target.HasValue)
+            return -1;
+        return (target.Value - transform.position).magnitude;
+    }
+    public float distanceToTargetX()
+    {
+        if (!target.HasValue)
+            return -1;
+        return Mathf.Abs(target.Value.x - transform.position.x);
+    }
+
+    public StateMachine state_machine = new StateMachine();
+
+    public bool grounded = true;
+
+    // Use this for initialization
+    public virtual void Start ()
+    {
+	}
+	
+	// Update is called once per frame
+	public virtual void Update ()
+    {
+        target = Player.S.transform.position;
+        state_machine.Update();
+    }
+
+    public bool isRunning()
+    {
+        return rb().velocity.x != 0;
+    }
+
+    public SpriteRenderer sprend() { return GetComponent<SpriteRenderer>(); }
+    public Rigidbody rb() { return GetComponent<Rigidbody>(); }
+}

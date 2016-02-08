@@ -13,7 +13,7 @@ public class Utils : MonoBehaviour {
 
     }
 
-    public static int Sign(float x, bool canReturnZero=true)
+    public static int Sign(float x, bool canReturnZero = true)
     {
         if (canReturnZero && x == 0)
             return 0;
@@ -21,8 +21,39 @@ public class Utils : MonoBehaviour {
     }
 
     public static Vector3 mouse { get { return Camera.main.ScreenToWorldPoint(Input.mousePosition); } }
-    public static float GetAngleToMouse(Vector3 pos) { var m = mouse; return Mathf.Atan2(m.y - pos.y, m.x - pos.x);  }
+    public static float GetAngleToMouse(Vector3 pos) { var m = mouse; return Mathf.Atan2(m.y - pos.y, m.x - pos.x); }
 
+    public static void showTrajectory(Vector3 pStartPosition, Vector3 pVelocity)
+    {
+        float velocity = pVelocity.magnitude;
+        float angle = Mathf.Rad2Deg * (Mathf.Atan2(pVelocity.y, pVelocity.x));
+        float fTime = 0;
+
+        Vector3 pt = pStartPosition;
+        float offsetX = 0;
+        for (int i = 0; i < 30; i++)
+        {
+            float dx = velocity * fTime * Mathf.Cos(angle * Mathf.Deg2Rad);
+            float dy = velocity * fTime * Mathf.Sin(angle * Mathf.Deg2Rad) - (Physics2D.gravity.magnitude * fTime * fTime / 2.0f);
+            Vector3 ptNew = new Vector3(pStartPosition.x + offsetX + dx, pStartPosition.y + dy, 2);
+            //Debug.DrawLine(pt, ptNew);
+            pt = ptNew;
+            fTime += 0.1f;
+        }
+    }
+
+    public static Vector3 trajectoryYGivenX(float x, Vector3 pStartPosition, Vector3 pVelocity)
+    {
+        float velocity = Mathf.Sqrt((pVelocity.x * pVelocity.x) + (pVelocity.y * pVelocity.y));
+        float angle = Mathf.Rad2Deg * (Mathf.Atan2(pVelocity.y, pVelocity.x));
+        float fTime = (x - pStartPosition.x) / velocity / Mathf.Cos(angle * Mathf.Deg2Rad);
+        float dy = velocity * fTime * Mathf.Sin(angle * Mathf.Deg2Rad) - (Physics2D.gravity.magnitude * fTime * fTime / 2.0f);
+        Vector3 ptNew = new Vector3(x, pStartPosition.y + dy, 2);
+        float d = 0.2f;
+        //Debug.DrawLine(ptNew + new Vector3(-d, -d, 0), ptNew + new Vector3(d, d, 0));
+        //Debug.DrawLine(ptNew + new Vector3(d, -d, 0), ptNew + new Vector3(-d, d, 0));
+        return ptNew;
+    }
     /*public static Vector3 GetLaunchVector(Vector3 _start, Vector3 to, float _gravity, float _velocity)
     {
 		var g = -_gravity;

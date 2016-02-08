@@ -5,15 +5,19 @@ public class ThrownScoop : MonoBehaviour {
 
     public GameObject diePrefab;
     public GameObject dropPrefab;
-
-    private bool isTopScoop;
+    
+    public Drop.IceCream type;
+    private float scoopMassNormal;
 
     private Vector3 lastPos;
 
 	// Use this for initialization
 	void Start () {
-        isTopScoop = gameObject.name.Contains("Top"); //Hacky way to auto-detect that this scoop is a top scoop or bottom scoop.
+        //type = gameObject.name.Contains("Top") ? Player.S.topScoopType : Player.S.middleScoopType; //Hacky way to auto-detect that this scoop is a top scoop or bottom scoop.
+        
+
         ResetScaleToMass();
+        lastPos = transform.position;
     }
 	
 	// Update is called once per frame
@@ -24,7 +28,8 @@ public class ThrownScoop : MonoBehaviour {
 
     public void ResetScaleToMass()
     {
-        var n = Mathf.Pow(GetComponent<Rigidbody>().mass, 0.3333f) / Mathf.Pow(isTopScoop ? Player.S.topScoopMassNormal : Player.S.middleScoopMassNormal, 0.3333f);
+        scoopMassNormal = Drop.massNormals[(int)type];
+        var n = Mathf.Pow(GetComponent<Rigidbody>().mass, 0.3333f) / Mathf.Pow(scoopMassNormal, 0.3333f);
         GetComponent<SphereCollider>().radius = n / 2;
         GetComponent<SpriteRenderer>().transform.localScale = n * Vector3.one;
     }
@@ -75,23 +80,23 @@ public class ThrownScoop : MonoBehaviour {
         while (massToRelease > 0)
         {
             float massForThisDrop = Mathf.Min(massToReleaseStart / numDrops * (0.1f + 1.9f * Random.value), massToRelease);
-            SpawnDropDirection(massForThisDrop, Mathf.Atan2(GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.x));
+            SpawnDropDirection(massForThisDrop, GetComponent<Rigidbody>().velocity.magnitude, Mathf.Atan2(GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.x));
             massToRelease -= massForThisDrop;
         }
         Destroy(this.gameObject);
     }
 
-    void SpawnDropDirection(float _mass, float _angle)
+    void SpawnDropDirection(float _mass, float _speed, float _angle)
     {
         var o = Instantiate<GameObject>(dropPrefab);
-        o.GetComponent<Drop>().Initialize(transform.position, GetComponent<SpriteRenderer>().sprite, _mass, isTopScoop);
-        o.GetComponent<Drop>().LaunchDirection(transform.position, 10, _angle + Mathf.PI / 20 * (-1 + 2 * Random.value));
+        o.GetComponent<Drop>().Initialize(transform.position, _mass, type);
+        o.GetComponent<Drop>().LaunchDirection(transform.position, _speed, _angle + Mathf.PI / 20 * (-1 + 2 * Random.value));
     }
 
     void SpawnDrop(float _mass, float _angle)
     {
         var o = Instantiate<GameObject>(dropPrefab);
-        o.GetComponent<Drop>().Initialize(transform.position, GetComponent<SpriteRenderer>().sprite, _mass, isTopScoop);
+        o.GetComponent<Drop>().Initialize(transform.position, _mass, type);
         o.GetComponent<Drop>().LaunchRandomRadially(transform.position, 5 * Random.value + 10f);
     }
 }

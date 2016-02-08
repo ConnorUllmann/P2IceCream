@@ -17,12 +17,14 @@ public class PlayerTrigger : MonoBehaviour {
 
     void OnTriggerStay(Collider c)
     {
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.tag == "Player" && Player.S.hurtTimer <= 0)
         {
-            if(drop.isTopScoop)
+            if (drop.type == Player.S.topScoopType)
                 Player.S.topScoopMass += drop.StealMass();
-            else
+            else if (drop.type == Player.S.middleScoopType)
                 Player.S.middleScoopMass += drop.StealMass();
+            else if (drop.type == Drop.IceCream.Brown)
+                Player.S.AddMass(drop.StealMass());
         }
     }
 }
