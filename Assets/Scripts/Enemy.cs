@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
+    public int difficulty = 3; // the estimated difficulty of this enemy
+    public int waveRequirement = 1; // the wave at which this enemy begins to spawn
+    public int spawnWeight = 10; // the relative frequency at which this enemy spawns
+
     public Vector3? target;
     public int direction = 1;
     public int directionToTarget { get { if (!target.HasValue) return 0; return Utils.Sign(target.Value.x - transform.position.x); } }
