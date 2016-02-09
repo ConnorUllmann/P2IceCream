@@ -45,9 +45,9 @@ public class Enemy : MonoBehaviour {
     }
 
     // when this enemy is destroyed/killed
-    void OnDestroy() {
+    public void OnDestroy() {
         // track difficulty
-        EnemyManager.S.currentDifficulty -= this.difficulty;
+        //EnemyManager.S.currentDifficulty -= this.difficulty;
     }
 
     public SpriteRenderer sprend() { return GetComponent<SpriteRenderer>(); }
