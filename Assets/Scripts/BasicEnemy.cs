@@ -39,6 +39,17 @@ public class BasicEnemy : Enemy {
 
 
 	}
+    
+    public void Damage(float _damage)
+    {
+        Destroy(this.gameObject);
+        /*
+        if (hurtTimer <= 0) //This means we aren't currently hurt and invincible
+        {
+            ExplodeInDirection(_damage);
+            hurtTimer = hurtTimerMax;
+        }*/
+    }
 
     void OnCollisionEnter(Collision c)
     {

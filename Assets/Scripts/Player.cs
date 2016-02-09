@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-    private static int JumpVelocity = 10;
+    private static int JumpVelocity = 8;
     public static Player S;
 
     public GameObject face;

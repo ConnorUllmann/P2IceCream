@@ -8,6 +8,7 @@ public class Drop : MonoBehaviour {
     public static float[] massNormals = new float[3] { 3, 2, 1 };
     public static float[] sizeMults = new float[3] { 2, 1.5f, 1 };
     public Sprite[] sprites;
+    public float[] damage = new float[3] { 0, 1, 1 };
     
     public IceCream type;
     private float scoopMassNormal;
@@ -16,7 +17,7 @@ public class Drop : MonoBehaviour {
     public GameObject diePrefab;
     public GameObject playerTrigger;
 
-    private bool readyForPickup = false;
+    private bool hitWall = false;
 
     private Vector3 lastPos;
 
@@ -51,7 +52,7 @@ public class Drop : MonoBehaviour {
             ResetScaleToMass();
         }
 
-        if(readyForPickup && Player.S.hurtTimer <= 0 && 
+        if(hitWall && Player.S.hurtTimer <= 0 && 
           (transform.position - Player.S.transform.position).magnitude <= 2f * (playerTrigger.GetComponent<SphereCollider>().radius + Player.S.GetComponent<SphereCollider>().radius))
         {
             transform.position = (Player.S.transform.position - transform.position) * 0.25f + transform.position;
@@ -68,11 +69,19 @@ public class Drop : MonoBehaviour {
         GetComponent<SpriteRenderer>().transform.localScale = n * Vector3.one;
     }
 
+    void OnTriggerEnter(Collider c)
+    {
+        if(c.gameObject.tag == "BasicEnemy")
+        {
+            if(type == IceCream.White && !hitWall)
+                c.gameObject.GetComponent<BasicEnemy>().Damage(damage[(int)type]);
+        }
+    }
     void OnTriggerStay(Collider c)
     {
         if (c.gameObject.tag == "Tile")
         {
-            readyForPickup = true;
+            hitWall = true;
 
             RaycastHit hitInfo;
             if(Physics.Raycast(lastPos, transform.position - lastPos, out hitInfo, GetComponent<Rigidbody>().velocity.magnitude * 2f))
@@ -93,7 +102,7 @@ public class Drop : MonoBehaviour {
 
     public float StealMass()
     {
-        if (!readyForPickup)
+        if (!hitWall)
             return 0;
 
         var m = GetComponent<Rigidbody>().mass;
