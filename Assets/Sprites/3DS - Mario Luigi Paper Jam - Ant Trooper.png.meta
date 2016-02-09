@@ -1,10 +1,20 @@
 fileFormatVersion: 2
 guid: eb84df188a17945a3be22fbec6c631ab
-timeCreated: 1454988885
+timeCreated: 1455043961
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Ant_1
+    21300002: Ant_2
+    21300004: Ant_3
+    21300006: Ant_4
+    21300008: Ant_5
+    21300010: Ant_6
+    21300012: Ant_7
+    21300014: Ant_8
+    21300016: Ant_9
+    21300018: Ant_10
+    21300020: Ant_11
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -69,6 +79,181 @@ TextureImporter:
         - {x: 20, y: -22}
         - {x: 20, y: 0}
         - {x: 13, y: 17}
+    - name: Ant_2
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 582
+        width: 42
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 21.5}
+        - {x: -21, y: -4.5}
+        - {x: -18, y: -21.5}
+        - {x: 21, y: -21.5}
+        - {x: 21, y: 3.5}
+        - {x: 11, y: 21.5}
+    - name: Ant_3
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 582
+        width: 43
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21.5, y: 21.5}
+        - {x: -21.5, y: -9.5}
+        - {x: -20.5, y: -18.5}
+        - {x: -12.5, y: -21.5}
+        - {x: 21.5, y: -21.5}
+        - {x: 21.5, y: 2.5}
+        - {x: 9.5, y: 21.5}
+    - name: Ant_4
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 582
+        width: 43
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21.5, y: 21.5}
+        - {x: -21.5, y: -21.5}
+        - {x: 21.5, y: -21.5}
+        - {x: 21.5, y: -0.5}
+        - {x: 5.5, y: 21.5}
+    - name: Ant_5
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 582
+        width: 45
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -22.5, y: 21}
+        - {x: -22.5, y: -17}
+        - {x: -15.5, y: -21}
+        - {x: 22.5, y: -21}
+        - {x: 22.5, y: -8}
+        - {x: 15.5, y: 11}
+        - {x: 4.5, y: 21}
+    - name: Ant_6
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 582
+        width: 45
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 1.5, y: 21}
+        - {x: -22.5, y: 21}
+        - {x: -22.5, y: 0}
+        - {x: -16.5, y: -21}
+        - {x: 22.5, y: -21}
+        - {x: 22.5, y: -4}
+        - {x: 15.5, y: 10}
+    - name: Ant_7
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 582
+        width: 42
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 21.5}
+        - {x: -21, y: -4.5}
+        - {x: -18, y: -21.5}
+        - {x: 21, y: -21.5}
+        - {x: 21, y: 3.5}
+        - {x: 11, y: 21.5}
+    - name: Ant_8
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 584
+        width: 38
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 9, y: 20.5}
+        - {x: -19, y: 20.5}
+        - {x: -19, y: -15.5}
+        - {x: -18, y: -20.5}
+        - {x: 19, y: -20.5}
+        - {x: 19, y: -1.5}
+        - {x: 15, y: 18.5}
+    - name: Ant_9
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 584
+        width: 34
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 20.5}
+        - {x: -17, y: -15.5}
+        - {x: -7, y: -20.5}
+        - {x: 17, y: -20.5}
+        - {x: 17, y: 10.5}
+        - {x: 7, y: 20.5}
+    - name: Ant_10
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 584
+        width: 34
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 20}
+        - {x: -17, y: -7}
+        - {x: -15, y: -14}
+        - {x: -10, y: -20}
+        - {x: 16, y: -20}
+        - {x: 17, y: -19}
+        - {x: 17, y: 8}
+        - {x: 5, y: 20}
+    - name: Ant_11
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 584
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20, y: 20}
+        - {x: -20, y: -5}
+        - {x: -12, y: -20}
+        - {x: 20, y: -20}
+        - {x: 20, y: 9}
+        - {x: 13, y: 20}
     outline: []
   spritePackingTag: 
   userData: 

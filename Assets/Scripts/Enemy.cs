@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour {
 
     public StateMachine state_machine = new StateMachine();
 
-    public bool grounded = true;
+	public bool grounded = true;
 
     // Use this for initialization
     public virtual void Start ()
