@@ -99,7 +99,6 @@ public class Drop : MonoBehaviour {
             else
             {
                 var v = StealMass(0.8f, true) * damage[(int)type];
-                Debug.Log("Damaging! " + v);
                 c.gameObject.GetComponent<BasicEnemy>().Damage(v);
             }
             /*
