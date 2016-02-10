@@ -8,8 +8,9 @@ public class Drop : MonoBehaviour {
     public static float[] massNormals = new float[3] { 3, 2, 1 };
     public static float[] sizeMults = new float[3] { 2, 1.5f, 1 };
     public Sprite[] sprites;
-    public float[] damage = new float[3] { 0, 1, 1 };
-    
+    public float[] damage = new float[3] { 1, 1, 1 };
+    public float[] knockback = new float[3] { 3, 1, 1 };
+
     public IceCream type;
     private float scoopMassNormal;
     private float scoopSizeMult;
@@ -87,25 +88,30 @@ public class Drop : MonoBehaviour {
             return;
         if (c.gameObject.tag == "BasicEnemy")
         {
-            if ((type == IceCream.White || type == IceCream.Pink) && !hitWall)
+            if (!hitWall && (type == IceCream.White || type == IceCream.Pink))
             {
-                var v = GetComponent<Rigidbody>().velocity * 0.7f * GetComponent<Rigidbody>().mass;
+                var v = GetComponent<Rigidbody>().velocity * GetComponent<Rigidbody>().mass * knockback[(int)type];
                 v.y = Mathf.Abs(v.y);
                 c.gameObject.GetComponent<Rigidbody>().velocity += v;
 
                 c.gameObject.GetComponent<BasicEnemy>().Damage(GetComponent<Rigidbody>().mass * damage[(int)type]);
-                
-                /*
-                GetComponent<Rigidbody>().isKinematic = true;
-                attached = true;
-                this.transform.parent = c.gameObject.transform;
-                RaycastHit hitInfo;
-                var hit = Physics.Raycast(lastPos, GetComponent<Rigidbody>().velocity, out hitInfo);
-                if(hit)
-                {
-                    this.transform.position = hitInfo.point;
-                }*/
             }
+            else
+            {
+                var v = StealMass(0.8f, true) * damage[(int)type];
+                Debug.Log("Damaging! " + v);
+                c.gameObject.GetComponent<BasicEnemy>().Damage(v);
+            }
+            /*
+            GetComponent<Rigidbody>().isKinematic = true;
+            attached = true;
+            this.transform.parent = c.gameObject.transform;
+            RaycastHit hitInfo;
+            var hit = Physics.Raycast(lastPos, GetComponent<Rigidbody>().velocity, out hitInfo);
+            if(hit)
+            {
+                this.transform.position = hitInfo.point;
+            }*/
         }
     }
     void OnTriggerStay(Collider c)
@@ -135,9 +141,9 @@ public class Drop : MonoBehaviour {
         }
     }
 
-    public float StealMass(float _rate=0.25f)
+    public float StealMass(float _rate=0.25f, bool always = false)
     {
-        if (!hitWall && !attached)
+        if (!always && !hitWall && !attached)
             return 0;
 
         var m = GetComponent<Rigidbody>().mass;

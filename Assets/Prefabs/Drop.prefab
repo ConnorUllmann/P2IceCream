@@ -91,6 +91,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f541f1e996115fa44a50e999d92572a1, type: 3}
   - {fileID: 21300000, guid: 123a54bf5dcfe0948a72db031ca7ff85, type: 3}
   - {fileID: 21300000, guid: d4259da5b0d1d1d40ae410a9b2e1c68e, type: 3}
+  damage:
+  - 3
+  - 1
+  - 1
+  knockback:
+  - 3
+  - 1
+  - 1
   type: 0
   diePrefab: {fileID: 170626, guid: 31fe594bef544c443b58c4b364a3beed, type: 2}
   playerTrigger: {fileID: 112570}
@@ -195,6 +203,10 @@ Prefab:
       propertyPath: diePrefab
       value: 
       objectReference: {fileID: 170626, guid: 31fe594bef544c443b58c4b364a3beed, type: 2}
+    - target: {fileID: 0}
+      propertyPath: damage.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 155288}
