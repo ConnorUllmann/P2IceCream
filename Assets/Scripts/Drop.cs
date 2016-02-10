@@ -18,6 +18,7 @@ public class Drop : MonoBehaviour {
     public GameObject playerTrigger;
 
     private bool hitWall = false;
+    private bool attached = false; //Don't make this true
 
     private Vector3 lastPos;
 
@@ -46,6 +47,17 @@ public class Drop : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        if (attached)
+        {
+            var e = transform.parent.gameObject.GetComponent<BasicEnemy>();
+            if (e)
+            {
+                e.Damage(StealMass(0.001f) * damage[(int)type]);// GetComponent<Rigidbody>().mass * damage[(int)type]);
+                ResetScaleToMass();
+            }
+            return;
+        }
+
         if(Time.time - timeStart >= timeWaitToActivateColliders)
         {
             GetComponent<SphereCollider>().enabled = true;
@@ -68,17 +80,38 @@ public class Drop : MonoBehaviour {
         playerTrigger.GetComponent<SphereCollider>().radius = n / 2 * scoopSizeMult;
         GetComponent<SpriteRenderer>().transform.localScale = n * Vector3.one;
     }
-
+    
     void OnTriggerEnter(Collider c)
     {
-        if(c.gameObject.tag == "BasicEnemy")
+        if (attached)
+            return;
+        if (c.gameObject.tag == "BasicEnemy")
         {
-            if(type == IceCream.White && !hitWall)
-                c.gameObject.GetComponent<BasicEnemy>().Damage(damage[(int)type]);
+            if ((type == IceCream.White || type == IceCream.Pink) && !hitWall)
+            {
+                var v = GetComponent<Rigidbody>().velocity * 0.7f * GetComponent<Rigidbody>().mass;
+                v.y = Mathf.Abs(v.y);
+                c.gameObject.GetComponent<Rigidbody>().velocity += v;
+
+                c.gameObject.GetComponent<BasicEnemy>().Damage(GetComponent<Rigidbody>().mass * damage[(int)type]);
+                
+                /*
+                GetComponent<Rigidbody>().isKinematic = true;
+                attached = true;
+                this.transform.parent = c.gameObject.transform;
+                RaycastHit hitInfo;
+                var hit = Physics.Raycast(lastPos, GetComponent<Rigidbody>().velocity, out hitInfo);
+                if(hit)
+                {
+                    this.transform.position = hitInfo.point;
+                }*/
+            }
         }
     }
     void OnTriggerStay(Collider c)
     {
+        if (attached)
+            return;
         if (c.gameObject.tag == "Tile")
         {
             hitWall = true;
@@ -93,6 +126,8 @@ public class Drop : MonoBehaviour {
     }
     void OnTriggerExit(Collider c)
     {
+        if (attached)
+            return;
         if (c.gameObject.tag == "Tile")
         {
             GetComponent<Rigidbody>().isKinematic = false;
@@ -100,13 +135,13 @@ public class Drop : MonoBehaviour {
         }
     }
 
-    public float StealMass()
+    public float StealMass(float _rate=0.25f)
     {
-        if (!hitWall)
+        if (!hitWall && !attached)
             return 0;
 
         var m = GetComponent<Rigidbody>().mass;
-        var v = m / 4f;
+        var v = m * _rate;
         if (m < 0.1f)
         {
             Destroy(this.gameObject);

@@ -59,12 +59,31 @@ public class Player : MonoBehaviour {
         lastTime = Time.time;
 	}
 
+    float shake = 0f;
+    float shakeAmount = 0.7f;
+    public static void Screenshake(float _time, float _multiplier)
+    {
+        S.shake = _time;
+        S.shakeAmount = _multiplier;
+    }
+
     // Update is called once per frame
     void Update ()
     {
         float dt = Time.time - lastTime;
+        
+        //Screenshakes
+        if (shake > 0)
+        {
+            Camera.main.transform.position += Random.insideUnitSphere * shakeAmount * shake;
+            shake -= dt;
+        }
+        else
+        {
+            shake = 0f;
+        }
 
-        if(hurtTimer > 0)
+        if (hurtTimer > 0)
         {
             hurtTimer = Mathf.Max(hurtTimer - dt, 0);
             if ((int)(hurtTimer / hurtTimerMax * hurtTimerFlashInterval) % 2 == 1)

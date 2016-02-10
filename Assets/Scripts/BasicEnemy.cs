@@ -11,6 +11,9 @@ public class BasicEnemy : Enemy {
     private static float JumpSpeedHighest = 9;
     private static float bounceOffPlayerSpeed = 3f;
 
+    public GameObject flames;
+    public GameObject explosionPrefab;
+
     public Sprite[] spriteWalk;
     public Sprite[] spriteStand;
     public Sprite spriteAirUp;
@@ -19,9 +22,14 @@ public class BasicEnemy : Enemy {
     public int spriteWalkSpeed;
     public int spriteStandSpeed;
 
+    public float walkSpeedNormal;
     public float walkSpeed;
 
     public float damage;
+
+    public float healthMax;
+    public float health;
+    public float healthNormal { get { return health / healthMax; } }
 
     public bool ______________________;
 
@@ -29,7 +37,8 @@ public class BasicEnemy : Enemy {
     override public void Start ()
     {
         base.Start();
-        state_machine.ChangeState(new StateBasicEnemyAir(this));
+        health = healthMax;
+        state_machine.ChangeState(new StateBasicEnemyAir(this, rb().velocity.x));
 	}
 	
 	// Update is called once per frame
@@ -37,12 +46,28 @@ public class BasicEnemy : Enemy {
     {
         base.Update();
 
-
+        var h = healthNormal;
+        var h_n = h * h * h;
+        walkSpeed = walkSpeedNormal * (h/2 + 0.5f);
+        sprend().color = new Color(h, 1 - h_n, 1 - h_n, 1);
+        flames.SetActive(h >= 0.75f);
+        flames.GetComponent<ParticleSystem>().Emit(4);
 	}
     
     public void Damage(float _damage)
     {
-        Destroy(this.gameObject);
+        if (health > 0)
+        {
+            health -= _damage;
+            if (health <= 0)
+            {
+                var o = Instantiate<GameObject>(explosionPrefab);
+                o.GetComponentInChildren<Explosion>().Initialize(0.2f, new Vector3(0.5f, 0.5f, 0.5f));
+                o.transform.position = transform.position;
+                Player.Screenshake(0.3f, 1);
+                Destroy(this.gameObject);
+            }
+        }
         /*
         if (hurtTimer <= 0) //This means we aren't currently hurt and invincible
         {
@@ -120,8 +145,8 @@ public class BasicEnemy : Enemy {
                             }
                             
                             vel = new Vector3(multSpeedX * p.walkSpeed * p.direction, Mathf.Max(vel.y, jumpSpeed));
-                            p.rb().velocity = vel;
-                            var s = new StateBasicEnemyAir(p);
+                            p.rb().velocity = vel;//+= (vel - p.rb().velocity) * 0.25f;
+                            var s = new StateBasicEnemyAir(p, p.rb().velocity.x);
                             p.state_machine.ChangeState(s);
                             return;
                         }
@@ -154,14 +179,14 @@ public class BasicEnemy : Enemy {
                         {
                             //Debug.Log("Short jump!");
                             vel = new Vector3(vel.x, Mathf.Max(vel.y, JumpSpeedShort));
-                            p.state_machine.ChangeState(new StateBasicEnemyAir(p));
+                            p.state_machine.ChangeState(new StateBasicEnemyAir(p, p.rb().velocity.x));
                         }
                         //If there's a pit in the two spots immediately in front of us and a tile on the other side, jump over to it.
                         else if (depth.Length >= 4 && depth[1] > 0.75f && depth[2] == 0.75f && depth[3] <= 0.75f)
                         {
                             //Debug.Log("Long jump!");
                             vel = new Vector3(vel.x, Mathf.Max(vel.y, JumpSpeedLong));
-                            p.state_machine.ChangeState(new StateBasicEnemyAir(p));
+                            p.state_machine.ChangeState(new StateBasicEnemyAir(p, p.rb().velocity.x));
                         }
                     }
                 }
@@ -170,7 +195,7 @@ public class BasicEnemy : Enemy {
             if(p.isRunning())
             {
                 p.sprend().flipX = p.direction == -1;
-                p.sprend().sprite = p.spriteWalk[(int)Mathf.Abs(totalTime * p.spriteWalkSpeed * p.rb().velocity.x / p.walkSpeed) % p.spriteWalk.Length];
+                p.sprend().sprite = p.spriteWalk[(int)Mathf.Abs(totalTime * p.spriteWalkSpeed * p.rb().velocity.x / p.walkSpeedNormal) % p.spriteWalk.Length];
             }
             else
             {
@@ -187,7 +212,7 @@ public class BasicEnemy : Enemy {
             }
             else
             {
-                p.state_machine.ChangeState(new StateBasicEnemyAir(p));
+                p.state_machine.ChangeState(new StateBasicEnemyAir(p, p.rb().velocity.x));
                 return;
             }
             p.rb().velocity = vel;
@@ -207,8 +232,6 @@ public class BasicEnemy : Enemy {
             speedX = _speedX;
             if (speedX != -1)
                 p.rb().velocity = new Vector3(speedX, p.rb().velocity.y, 0);
-            else
-                speedX = p.rb().velocity.x;
         }
 
         bool turnedNegative = false;

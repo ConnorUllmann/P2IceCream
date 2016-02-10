@@ -36,7 +36,7 @@ public class ThrownScoop : MonoBehaviour {
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.tag == "Tile")
+        if (c.gameObject.tag == "Tile" || c.gameObject.tag == "BasicEnemy")
         {
             var rb = GetComponent<Rigidbody>();
             var massToReleaseStart = rb.mass;// * (Random.value * 0.9f + 0.1f);
@@ -75,7 +75,7 @@ public class ThrownScoop : MonoBehaviour {
         var rb = GetComponent<Rigidbody>();
         var massToReleaseStart = rb.mass;
         var massToRelease = massToReleaseStart;
-        int numDrops = (int)(Random.value * 5 + 10);
+        int numDrops = type == Drop.IceCream.Pink ? (int)(Random.value * 20 + 20) : (int)(Random.value * 5 + 10);
 
         while (massToRelease > 0)
         {
