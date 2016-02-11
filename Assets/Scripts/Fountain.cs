@@ -9,7 +9,7 @@ public class Fountain : MonoBehaviour {
     public float dropSize = 0.01f; // the mass of each ice cream droplet
     public GameObject dropPrefab; // the drop prefab
 
-    private bool recharged = false;
+    private bool recharged = true;
     private Vector3 sprayDirection; // the direction in which to spray ice cream
 
 
