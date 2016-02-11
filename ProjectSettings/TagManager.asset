@@ -5,11 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
-  - ScoopProjectile
-  - Drop
-  - BasicEnemy
   - EnemySpawner
+  - BasicEnemy
+  - MrLickums
   - AntEnemy
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -20,11 +20,11 @@ TagManager:
   - 
   - 
   - Player
-  - ScoopProjectile
-  - BasicEnemy
-  - EnemySpawner
+  - Projectile
   - Tile
-  - AntEnemy
+  - 
+  - 
+  - 
   - 
   - 
   - 

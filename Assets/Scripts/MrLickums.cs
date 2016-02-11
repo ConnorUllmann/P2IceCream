@@ -14,10 +14,17 @@ public class MrLickums : Enemy
     public float flySpeed;
 
     public float damage;
-    public float health = 3;
-    public float moveWaitTime = 2; // Seconds waited before changing velocity
+    public float health = 3.0f;
+    public float moveWaitTime = 0; // Seconds waited before changing velocity
     public float moveWaitTimer; // Actual timer that counts down
     public bool stuckOnWall = false;
+    public Vector3 lastPosition;
+
+    public int brownCount = 0;
+    public int whiteCount = 0;
+    public int pinkCount = 0;
+
+    public GameObject dropPrefab;
 
     public bool ______________________;
 
@@ -56,43 +63,93 @@ public class MrLickums : Enemy
     public class StateMrLickumsNormal : State
     {
         MrLickums p;
-        private float totalTime;
 
         public StateMrLickumsNormal(MrLickums _p)
         {
             p = _p;
-            totalTime = 0;
         }
 
         public override void OnUpdate(float time_delta_fraction)
         {
-            p.moveWaitTimer -= Time.deltaTime;
+            // Locates the drops on screen and heads for thems
+            GameObject[] dropArray = GameObject.FindGameObjectsWithTag("Drop");
+            GameObject closestDrop;
 
-            // Make movement look better by having slow down
-            if (p.moveWaitTimer / p.moveWaitTime <= 0.25f)
+            // Move to the closest drop
+            if (dropArray.Length != 0)
             {
-                p.rb().velocity = p.rb().velocity * (p.moveWaitTimer / p.moveWaitTime);
-            }
+                closestDrop = dropArray[0];
+                foreach (GameObject drop in dropArray)
+                {
+                    if ((drop.transform.position - p.rb().position).magnitude < (closestDrop.transform.position - p.rb().position).magnitude)
+                    {
+                        closestDrop = drop;
+                    }
+                }
 
-            if (p.health <= 0)
-            {
-                Destroy(p.gameObject);
-            }
+                if ((Player.S.transform.position - p.rb().position).magnitude < (closestDrop.transform.position - p.rb().position).magnitude)
+                {
+                    p.rb().velocity = (Player.S.transform.position - p.rb().position).normalized * p.flySpeed;
+                }
+                else
+                {
+                    p.rb().velocity = (closestDrop.transform.position - p.rb().position).normalized * p.flySpeed;
+                }
 
-            if (p.stuckOnWall && p.rb().velocity.magnitude <= 0.25f)
-            {
-                Vector3 tempVel = p.rb().velocity;
-                tempVel.y = 1;
-                p.rb().velocity = tempVel;
-                p.moveWaitTimer = 1;
-                p.stuckOnWall = false;
             }
-            
-            if (p.moveWaitTimer <= 0)
+            // Move to the player
+            else
             {
                 p.rb().velocity = (Player.S.transform.position - p.rb().position).normalized * p.flySpeed;
-                p.moveWaitTimer = p.moveWaitTime;
             }
+        }
+    }
+
+    public void Damage(float _damage)
+    {
+        health -= _damage;
+
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+            releaseDrops();
+        }
+    }
+
+    public void collectDrop(Drop.IceCream flavor)
+    {
+        if (flavor == Drop.IceCream.Brown)
+        {
+            brownCount++;
+        }
+        else if (flavor == Drop.IceCream.White)
+        {
+            whiteCount++;
+        }
+        else if (flavor == Drop.IceCream.Pink)
+        {
+            pinkCount++;
+        }
+    }
+
+    public void releaseDrops()
+    {
+        if (brownCount > 0)
+        {
+            GameObject o = Instantiate<GameObject>(dropPrefab);
+            o.GetComponent<Drop>().Initialize(transform.position + Vector3.left, brownCount / 20, Drop.IceCream.Brown);
+        }
+
+        if (whiteCount > 0)
+        {
+            GameObject o = Instantiate<GameObject>(dropPrefab);
+            o.GetComponent<Drop>().Initialize(transform.position, whiteCount / 20, Drop.IceCream.White);
+        }
+
+        if (pinkCount > 0)
+        {
+            GameObject o = Instantiate<GameObject>(dropPrefab);
+            o.GetComponent<Drop>().Initialize(transform.position + Vector3.right, pinkCount / 20, Drop.IceCream.Pink);
         }
     }
 }

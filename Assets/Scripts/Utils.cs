@@ -20,6 +20,12 @@ public class Utils : MonoBehaviour {
         return x >= 0 ? 1 : -1;
     }
 
+    public static float easeOutElastic(float t)
+    {
+        var p = 0.3;
+        return Mathf.Pow(2, -10 * t) * Mathf.Sin((float)((t - p / 4f) * (2f * Mathf.PI) / p)) + 1;
+    }
+
     public static Vector3 mouse { get { return Camera.main.ScreenToWorldPoint(Input.mousePosition); } }
     public static float GetAngleToMouse(Vector3 pos) { var m = mouse; return Mathf.Atan2(m.y - pos.y, m.x - pos.x); }
 
