@@ -9,6 +9,7 @@ TagManager:
   - Drop
   - BasicEnemy
   - EnemySpawner
+  - MrLickums
   layers:
   - Default
   - TransparentFX
