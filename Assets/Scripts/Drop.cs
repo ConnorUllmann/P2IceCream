@@ -127,7 +127,21 @@ public class Drop : MonoBehaviour {
                 this.transform.position = hitInfo.point;
             }*/
         }
+
+		if (c.gameObject.tag == "AntEnemy") {
+			if (!hitWall && (type == IceCream.White || type == IceCream.Pink)) {
+				var v = GetComponent<Rigidbody> ().velocity * GetComponent<Rigidbody> ().mass * knockback [(int)type];
+				v.y = Mathf.Abs (v.y);
+				c.gameObject.GetComponent<Rigidbody> ().velocity += v;
+
+				c.gameObject.GetComponent<AntEnemy> ().Damage (GetComponent<Rigidbody> ().mass * damage [(int)type]);
+			} else {
+				var v = StealMass (0.8f, true) * damage [(int)type];
+				c.gameObject.GetComponent<AntEnemy> ().Damage (v);
+			}
+		}
     }
+
     void OnTriggerStay(Collider c)
     {
         if (attached)
@@ -144,6 +158,7 @@ public class Drop : MonoBehaviour {
             GetComponent<Rigidbody>().isKinematic = true;
         }
     }
+
     void OnTriggerExit(Collider c)
     {
         if (attached)

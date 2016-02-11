@@ -7,6 +7,8 @@ public class AntEnemy : Enemy {
 	public int spriteWalkSpeed;
 	public float walkSpeed;
 	public float damage;
+	public float health;
+	public float bounceOffPlayerSpeed = 3f;
 
 	public bool _______________________;
 
@@ -16,7 +18,7 @@ public class AntEnemy : Enemy {
 	override public void Start() 
 	{
 		base.Start ();
-		state_machine.ChangeState (new StateAntEnemyNormal (this));
+		state_machine.ChangeState (new StateAntEnemyDrop (this));
 
 		// Set tilePhysicsLayerMask
 		tilePhysicsLayerMask = LayerMask.GetMask("Tile");
@@ -28,13 +30,38 @@ public class AntEnemy : Enemy {
 		base.Update ();
 	}
 
+	public void Damage(float _damage)
+	{
+		if (health > 0) {
+			health -= _damage;
+			StartCoroutine (Flash ());
+			if (health <= 0) {
+				Player.Screenshake (0.3f, 1);
+				Destroy (this.gameObject);
+			}
+		}
+	}
+
 	void OnCollisionEnter(Collision c) 
 	{
 		if (c.gameObject.tag == "Player") 
 		{
 			Player.S.Damage (damage);
 
-			transform.Rotate (0, 180, 0);
+			if (grounded) {
+				transform.Rotate (0, 180, 0);
+			} else {
+				var v = (transform.position - Player.S.transform.position).normalized;
+				rb ().velocity += v * bounceOffPlayerSpeed;
+			}
+		}
+	}
+
+	IEnumerator Flash() {
+		for (int i = 0; i < 2; ++i) {
+			sprend ().enabled = false;
+			yield return new WaitForSeconds (0.05f);
+			sprend ().enabled = true;
 		}
 	}
 
@@ -48,6 +75,10 @@ public class AntEnemy : Enemy {
 		{
 			p = _p;
 			totalTime = 0;
+		}
+
+		public override void OnStart() {
+			p.rb ().useGravity = false;
 		}
 
 		public override void OnUpdate(float time_delta_fraction)
@@ -78,10 +109,46 @@ public class AntEnemy : Enemy {
 			p.rb ().velocity = vel;
 			totalTime = Mathf.Max (totalTime + Mathf.Abs (time_delta_fraction), 0);
 
+			if (Mathf.Abs (p.transform.position.x - Player.S.transform.position.x) <= 0.5
+				&& p.transform.position.y > Player.S.transform.position.y
+				&& Mathf.Abs(p.transform.rotation.z) == 1) {
+				p.state_machine.ChangeState (new StateAntEnemyDrop (p));
+			}
+
 			// Temporary: handling bounds when enemy should be destroyed
-			if (p.transform.position.y > 5.9f || p.transform.position.x > 35.8f) {
-				Destroy (p.gameObject);
+//			if (p.transform.position.y > 5.9f || p.transform.position.x > 35.8f) {
+//				Destroy (p.gameObject);
+//			}
+		}
+	}
+
+	public class StateAntEnemyDrop : State
+	{
+		AntEnemy p;
+
+		private float totalTime;
+
+		public StateAntEnemyDrop(AntEnemy _p)
+		{
+			p = _p;
+			totalTime = 0;
+		}
+
+		public override void OnStart() {
+			p.transform.rotation = Quaternion.identity;
+			p.rb().useGravity = true;
+			p.rb().velocity = new Vector3(0,0,0);
+		}
+
+		public override void OnUpdate(float time_delta_fraction)
+		{
+			p.sprend ().sprite = p.spriteWalk [(int)Mathf.Abs (totalTime * p.spriteWalkSpeed * p.walkSpeed / p.walkSpeed) % p.spriteWalk.Length];
+			totalTime = Mathf.Max (totalTime + Mathf.Abs (time_delta_fraction), 0);
+
+			if (p.grounded) {
+				p.state_machine.ChangeState (new StateAntEnemyNormal (p));
 			}
 		}
+
 	}
 }
