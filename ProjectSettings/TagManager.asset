@@ -3,17 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Tile
-  - ScoopProjectile
-  - Drop
-  - BasicEnemy
-  - EnemySpawner
-<<<<<<< HEAD
-  - MrLickums
-=======
-  - AntEnemy
->>>>>>> origin/master
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -23,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - ScoopProjectile
-  - BasicEnemy
-  - EnemySpawner
-  - Tile
-  - AntEnemy
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
