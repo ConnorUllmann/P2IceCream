@@ -61,16 +61,21 @@ public class Drop : MonoBehaviour {
         if(Time.time - timeStart >= timeWaitToActivateColliders)
         {
             GetComponent<SphereCollider>().enabled = true;
-            ResetScaleToMass();
         }
 
-        if(hitWall && Player.S.hurtTimer <= 0 && 
-          (transform.position - Player.S.transform.position).magnitude <= 2f * (playerTrigger.GetComponent<SphereCollider>().radius + Player.S.GetComponent<SphereCollider>().radius))
+        StealMassAmount(0.00005f);
+
+        if (hitWall)
         {
-            transform.position = (Player.S.transform.position - transform.position) * 0.25f + transform.position;
-            GetComponent<Rigidbody>().isKinematic = false;
+            if (Player.S.hurtTimer <= 0 &&
+              (transform.position - Player.S.transform.position).magnitude <= 2f * (playerTrigger.GetComponent<SphereCollider>().radius + Player.S.GetComponent<SphereCollider>().radius))
+            {
+                transform.position = (Player.S.transform.position - transform.position) * 0.25f + transform.position;
+                GetComponent<Rigidbody>().isKinematic = false;
+            }
         }
 
+        ResetScaleToMass();
         lastPos = transform.position;
     }
 
@@ -169,6 +174,10 @@ public class Drop : MonoBehaviour {
         }
     }
 
+    public float StealMassAmount(float _amount, bool always = false)
+    {
+        return StealMass(_amount / GetComponent<Rigidbody>().mass, always);
+    }
     public float StealMass(float _rate=0.25f, bool always = false)
     {
         if (!always && !hitWall && !attached)
@@ -176,10 +185,9 @@ public class Drop : MonoBehaviour {
 
         var m = GetComponent<Rigidbody>().mass;
         var v = m * _rate;
-        if (m < 0.1f)
+        if (m < v)
         {
             Destroy(this.gameObject);
-            return m;
         }
         else
         {

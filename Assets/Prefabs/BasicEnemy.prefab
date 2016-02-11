@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 401118}
   - 198: {fileID: 19816882}
   - 199: {fileID: 19947726}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 54: {fileID: 5459576}
   - 114: {fileID: 11461566}
   - 135: {fileID: 13545792}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BasicEnemy
   m_TagString: BasicEnemy
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - 4: {fileID: 427416}
   - 65: {fileID: 6508544}
   - 114: {fileID: 11472820}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: JumpCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1771,7 +1771,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: spriteWalkSpeed

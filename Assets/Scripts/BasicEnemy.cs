@@ -37,6 +37,7 @@ public class BasicEnemy : Enemy {
     override public void Start ()
     {
         base.Start();
+        sprend().color = new Color(0, 0, 0, 0);
         health = healthMax;
         state_machine.ChangeState(new StateBasicEnemyAir(this, rb().velocity.x));
 	}
@@ -49,13 +50,14 @@ public class BasicEnemy : Enemy {
         var h = healthNormal;
         var h_n = h * h * h;
         walkSpeed = walkSpeedNormal * (h/2 + 0.5f);
-        sprend().color = new Color(h, 1 - h_n, 1 - h_n, 1);
+        sprend().color = new Color(h, 1 - h_n, 1 - h_n, Mathf.Min(sprend().color.a + 0.1f, 1));
         flames.SetActive(h >= 0.75f);
         flames.GetComponent<ParticleSystem>().Emit(4);
 	}
     
     public void Damage(float _damage)
     {
+        var c = sprend().color;
         if (health > 0)
         {
             health -= _damage;

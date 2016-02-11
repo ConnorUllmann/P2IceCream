@@ -12,7 +12,7 @@ GameObject:
   - 199: {fileID: 19973924}
   m_Layer: 0
   m_Name: FireBackEffect
-  m_TagString: Untagged
+  m_TagString: EnemySpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ GameObject:
   - 199: {fileID: 19954308}
   m_Layer: 0
   m_Name: FireFrontEffect
-  m_TagString: Untagged
+  m_TagString: EnemySpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   - 65: {fileID: 6533216}
   - 54: {fileID: 5437168}
   - 114: {fileID: 11438254}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Spawner
   m_TagString: EnemySpawner
   m_Icon: {fileID: 0}
@@ -63,9 +63,9 @@ GameObject:
   - 4: {fileID: 435612}
   - 198: {fileID: 19878486}
   - 199: {fileID: 19918192}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: PortalEffect
-  m_TagString: Untagged
+  m_TagString: EnemySpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 175806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.97, y: 6.92, z: 0}
+  m_LocalPosition: {x: 5.27, y: 8.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435612}
@@ -93,7 +93,7 @@ Transform:
   m_GameObject: {fileID: 183274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.029999971, y: 0.07999992, z: 0}
-  m_LocalScale: {x: 0.22, y: 0.15, z: 1}
+  m_LocalScale: {x: 0.3355, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 424112}
   m_RootOrder: 0
@@ -105,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 108188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.029999971, y: 0.07999992, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.6, z: 1}
+  m_LocalScale: {x: 0.4575, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 424112}
   m_RootOrder: 2
@@ -117,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 137824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.029999971, y: 0.07999992, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.6, z: 1}
+  m_LocalScale: {x: 0.4575, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 424112}
   m_RootOrder: 1
@@ -144,7 +144,7 @@ BoxCollider:
   m_GameObject: {fileID: 175806}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -160,7 +160,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnInterval: 3
-  spawnDelay: 1
+  portalEffect: {fileID: 183274}
+  fireEffect: {fileID: 137824}
+  fireBackEffect: {fileID: 108188}
+  portalStartScale: {x: 0, y: 0, z: 0}
+  fireStartScale: {x: 0, y: 0, z: 0}
+  fireBackStartScale: {x: 0, y: 0, z: 0}
 --- !u!198 &19806022
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -215,7 +220,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 0.8
+      scalar: 1.6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3106,7 +3111,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 1
   prewarm: 1
-  playOnAwake: 0
+  playOnAwake: 1
   moveWithTransform: 1
   scalingMode: 1
   InitialModule:
@@ -4513,7 +4518,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -3
   m_RenderMode: 0
   m_SortMode: 3
   m_MinParticleSize: 0
@@ -4554,7 +4559,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -2
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -4595,7 +4600,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -4
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -4636,7 +4641,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: -10
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: ed336a371b11e5f48b7527584e45ef17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4657,20 +4662,16 @@ Prefab:
       value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: playOnAwake
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: lengthInSec
-      value: 5
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: looping
-      value: 1
+      propertyPath: m_TagString
+      value: EnemySpawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
