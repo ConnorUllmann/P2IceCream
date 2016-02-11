@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -17,14 +17,72 @@ public class EnemySpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        portalStartScale = portalEffect.transform.localScale;
+        fireStartScale = fireEffect.transform.localScale;
+        fireBackStartScale = fireBackEffect.transform.localScale;
+        lastTime = Time.time;
+        spawnTimer = spawnInterval;
+        stretch = stretchMin;
+        UpdatePortalSize();
         // spawns an enemy at the spawn interval
-        InvokeRepeating("SpawnEnemy", 0, spawnInterval);
+        //InvokeRepeating("SpawnEnemy", 0, spawnInterval);
 	}
-	
+
+    public GameObject portalEffect;
+    public GameObject fireEffect;
+    public GameObject fireBackEffect;
+    public Vector3 portalStartScale;
+    public Vector3 fireStartScale;
+    public Vector3 fireBackStartScale;
+    float stretch;
+    float stretchMin = 0.0125f;
+    float portalTimeOpenBeforeSpawn = 0.6f;
+    float portalTimeOpenAfterSpawn = 0f;
+    bool open = false;
+    float lastTime = 0;
+    float spawnTimerWait = 5f; //Amount of time to wait before starting to spawn
+    float spawnTimer = 0;
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	void Update ()
+    {
+        var dt = Time.time - lastTime;
+
+        if (spawnTimerWait > 0)
+            spawnTimerWait -= dt;
+        else
+        {
+            spawnTimer += dt;
+            open = spawnQueue.Count > 0 && 
+                   (spawnTimer % spawnInterval <= portalTimeOpenAfterSpawn ||
+                    spawnTimer % spawnInterval >= spawnInterval - portalTimeOpenBeforeSpawn);
+        }
+        if(spawnTimer >= spawnInterval)
+        {
+            spawnTimer %= spawnInterval;
+            SpawnEnemy();
+        }
+
+        if (open)
+        {
+            stretch = Mathf.Max(Mathf.Min(stretch + 0.015f, 1), stretchMin);
+        }
+        else
+        {
+            stretch = Mathf.Max(Mathf.Min(stretch - 0.01f, 1), stretchMin);
+        }
+        UpdatePortalSize();
+
+        lastTime = Time.time;
+    }
+
+    void UpdatePortalSize()
+    {
+        var n = Utils.easeOutElastic(stretch);
+        transform.localScale = new Vector3(n, transform.localScale.y, 1);
+        portalEffect.transform.localScale = new Vector3(portalStartScale.x * n, portalStartScale.y, portalStartScale.z);
+        fireEffect.transform.localScale = new Vector3(fireStartScale.x * n, fireStartScale.y, fireStartScale.z);
+        fireBackEffect.transform.localScale = new Vector3(fireBackStartScale.x * n, fireBackStartScale.y, fireBackStartScale.z);
+    }
 
     // add an enemy to the spawn queue
     public void QueueEnemy(GameObject enemy) {
