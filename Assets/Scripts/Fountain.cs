@@ -85,7 +85,7 @@ public class Fountain : MonoBehaviour {
         this.recharged = false;
     }
 
-    void OnTriggerEnter(Collision col) {
+    void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "Player") { // when the player is near
             dropIceCream(); // drop ice cream
         }
