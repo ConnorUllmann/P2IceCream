@@ -9,6 +9,11 @@ TagManager:
   - Drop
   - BasicEnemy
   - EnemySpawner
+<<<<<<< HEAD
+  - MrLickums
+=======
+  - AntEnemy
+>>>>>>> origin/master
   layers:
   - Default
   - TransparentFX
@@ -23,7 +28,7 @@ TagManager:
   - BasicEnemy
   - EnemySpawner
   - Tile
-  - 
+  - AntEnemy
   - 
   - 
   - 
