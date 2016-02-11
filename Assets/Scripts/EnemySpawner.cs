@@ -18,6 +18,9 @@ public class EnemySpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        EnemyManager.S.enemySpawnerGOs.Add(this.gameObject);
+
         portalStartScale = portalEffect.transform.localScale;
         fireStartScale = fireEffect.transform.localScale;
         fireBackStartScale = fireBackEffect.transform.localScale;

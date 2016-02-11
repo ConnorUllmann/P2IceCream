@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tile
+  - EnemySpawner
+  - BasicEnemy
+  - MrLickums
+  - AntEnemy
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -13,9 +19,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Player
+  - Projectile
+  - Tile
   - 
   - 
   - 
