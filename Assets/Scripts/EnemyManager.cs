@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour {
     private int waveNumber = 0; // this is the current wave number
 
 	// contains initialization subroutines for enemy management
-	void Awake () {
+	void Start() {
         if (S != null) { // if an enemy manager already exists
             Destroy(this);
             return;
