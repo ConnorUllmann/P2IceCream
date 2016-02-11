@@ -381,6 +381,89 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 431792, guid: 2b8b09573bddc554c989e6ffeb8bde1c, type: 2}
   m_PrefabInternal: {fileID: 64153350}
+--- !u!1 &70432228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 70432229}
+  - 120: {fileID: 70432230}
+  - 114: {fileID: 70432231}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &70432229
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 70432228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1776561859}
+  m_RootOrder: 1
+--- !u!120 &70432230
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 70432228}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: -3, y: 0, z: 0}
+  m_Parameters:
+    startWidth: 0.05
+    endWidth: 0.05
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4278255484
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4278255484
+  m_UseWorldSpace: 1
+--- !u!114 &70432231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 70432228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0453632f45ec4a74b9e66db66f158f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  counter: 10
+  damage: 1
+  distance: 1.1
+  laser: 1
 --- !u!1001 &86681324
 Prefab:
   m_ObjectHideFlags: 0
@@ -2931,9 +3014,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61cf574dbe07ca419e5ac5a34525cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  W: 0
-  H: 0
   tilePrefab: {fileID: 139618, guid: 2b8b09573bddc554c989e6ffeb8bde1c, type: 2}
+  playerPrefab: {fileID: 0}
+  enemySpawnerPrefab: {fileID: 0}
+  levelAsset: {fileID: 0}
   ______________________________: 0
 --- !u!1001 &770032670
 Prefab:
@@ -3810,11 +3894,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 456618, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3.99
+      value: -3.13
       objectReference: {fileID: 0}
     - target: {fileID: 456618, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.15
+      value: 13.97
       objectReference: {fileID: 0}
     - target: {fileID: 456618, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3830,11 +3914,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 456618, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 456618, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.00000016292068
       objectReference: {fileID: 0}
     - target: {fileID: 456618, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
       propertyPath: m_RootOrder
@@ -7411,6 +7495,10 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 431792, guid: 2b8b09573bddc554c989e6ffeb8bde1c, type: 2}
   m_PrefabInternal: {fileID: 1774359146}
+--- !u!4 &1776561859 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 456618, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
+  m_PrefabInternal: {fileID: 1016970367}
 --- !u!1001 &1796636670
 Prefab:
   m_ObjectHideFlags: 0

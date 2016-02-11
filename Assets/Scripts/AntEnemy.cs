@@ -9,6 +9,7 @@ public class AntEnemy : Enemy {
 	public float damage;
 	public float health;
 	public float bounceOffPlayerSpeed = 3f;
+	public bool dropToggle;
 
 	public bool _______________________;
 
@@ -75,6 +76,7 @@ public class AntEnemy : Enemy {
 		{
 			p = _p;
 			totalTime = 0;
+			p.dropToggle = false;
 		}
 
 		public override void OnStart() {
@@ -132,6 +134,7 @@ public class AntEnemy : Enemy {
 		{
 			p = _p;
 			totalTime = 0;
+			p.dropToggle = true;
 		}
 
 		public override void OnStart() {
