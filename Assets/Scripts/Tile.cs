@@ -9,10 +9,7 @@ public class Tile : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        shape = (CollidesWithTileAt(transform.position + new Vector3(1, 0)) ? 1 : 0) +
-                (CollidesWithTileAt(transform.position + new Vector3(0, 1)) ? 2 : 0) +
-                (CollidesWithTileAt(transform.position + new Vector3(-1, 0)) ? 4 : 0) +
-                (CollidesWithTileAt(transform.position + new Vector3(0, -1)) ? 8 : 0);
+        shape = (int)Utils.ConnectsTo(this.transform.position);
         GetComponent<SpriteRenderer>().sprite = shapes[shape];
     }
 

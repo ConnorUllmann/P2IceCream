@@ -4,14 +4,13 @@ using System.Collections;
 
 public class Drop : MonoBehaviour {
 
-    public enum IceCream { Brown, White, Pink };
     public static float[] massNormals = new float[3] { 3, 2, 1 };
     public static float[] sizeMults = new float[3] { 2, 1.5f, 1 };
     public Sprite[] sprites;
     public float[] damage = new float[3] { 1, 1, 1 };
     public float[] knockback = new float[3] { 3, 1, 1 };
 
-    public IceCream type;
+    public Utils.IceCream type;
     private float scoopMassNormal;
     private float scoopSizeMult;
 
@@ -34,7 +33,7 @@ public class Drop : MonoBehaviour {
         playerTrigger.GetComponent<PlayerTrigger>().drop = this;
     }
 
-    public void Initialize(Vector3 _position, float _mass, IceCream _type)
+    public void Initialize(Vector3 _position, float _mass, Utils.IceCream _type)
     {
         lastPos = transform.position = _position;
         GetComponent<SpriteRenderer>().sprite = sprites[(int)_type];
@@ -88,7 +87,7 @@ public class Drop : MonoBehaviour {
             return;
         if (c.gameObject.tag == "BasicEnemy" || c.gameObject.tag == "MrLickums")
         {
-            if (!hitWall && (type == IceCream.White || type == IceCream.Pink))
+            if (!hitWall && (type == Utils.IceCream.White || type == Utils.IceCream.Pink))
             {
                 var v = GetComponent<Rigidbody>().velocity * GetComponent<Rigidbody>().mass * knockback[(int)type];
                 v.y = Mathf.Abs(v.y);
@@ -129,7 +128,7 @@ public class Drop : MonoBehaviour {
         }
 
 		if (c.gameObject.tag == "AntEnemy") {
-			if (!hitWall && (type == IceCream.White || type == IceCream.Pink)) {
+			if (!hitWall && (type == Utils.IceCream.White || type == Utils.IceCream.Pink)) {
 				var v = GetComponent<Rigidbody> ().velocity * GetComponent<Rigidbody> ().mass * knockback [(int)type];
 				v.y = Mathf.Abs (v.y);
 				c.gameObject.GetComponent<Rigidbody> ().velocity += v;

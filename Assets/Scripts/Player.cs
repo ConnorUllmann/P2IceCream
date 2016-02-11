@@ -13,13 +13,13 @@ public class Player : MonoBehaviour {
     public GameObject topScoop;
     public GameObject topScoopThrowPrefab;
     public Vector3 topScoopTo;
-    public Drop.IceCream topScoopType = Drop.IceCream.Pink;
+    public Utils.IceCream topScoopType = Utils.IceCream.Pink;
     public bool topScoopReadyToThrow = false;
     public float topScoopMassNormal;
     public float topScoopMass;
     public float topScoopLaunchVelocity;
-    public Drop.IceCream middleScoopType = Drop.IceCream.White;
-    public Drop.IceCream hurtScoopType = Drop.IceCream.Brown;
+    public Utils.IceCream middleScoopType = Utils.IceCream.White;
+    public Utils.IceCream hurtScoopType = Utils.IceCream.Brown;
 
     public GameObject middleScoop;
     public GameObject middleScoopThrowPrefab;
