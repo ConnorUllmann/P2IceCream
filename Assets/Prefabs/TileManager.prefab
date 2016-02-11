@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 139618, guid: 2b8b09573bddc554c989e6ffeb8bde1c, type: 2}
-  playerPrefab: {fileID: 168384, guid: b8a46f085b7f8304b9a71772e867925a, type: 2}
+  playerPrefab: {fileID: 170884, guid: 154de071eb96f5347b518107db195640, type: 2}
   enemySpawnerPrefab: {fileID: 175806, guid: ec093b270eecff04eafa26c7747863f1, type: 2}
   levelAsset: {fileID: 4900000, guid: e3ca2715faa659747b149cf5375779ea, type: 3}
   ______________________________: 0
