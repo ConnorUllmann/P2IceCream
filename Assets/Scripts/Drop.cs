@@ -91,7 +91,7 @@ public class Drop : MonoBehaviour {
     {
         if (attached)
             return;
-        if (c.gameObject.tag == "BasicEnemy" || c.gameObject.tag == "MrLickums")
+		if (c.gameObject.tag == "BasicEnemy" || c.gameObject.tag == "MrLickums" || c.gameObject.tag == "AntEnemy")
         {
             if (!hitWall && (type == IceCream.White || type == IceCream.Pink))
             {
@@ -99,27 +99,25 @@ public class Drop : MonoBehaviour {
                 v.y = Mathf.Abs(v.y);
                 c.gameObject.GetComponent<Rigidbody>().velocity += v;
 
-                if (c.gameObject.tag == "BasicEnemy")
-                {
-                    c.gameObject.GetComponent<BasicEnemy>().Damage(GetComponent<Rigidbody>().mass * damage[(int)type]);
-                }
-                else if (c.gameObject.tag == "MrLickums")
-                {
-                    c.gameObject.GetComponent<MrLickums>().Damage(GetComponent<Rigidbody>().mass * damage[(int)type]);
-                }
+				if (c.gameObject.tag == "BasicEnemy") {
+					c.gameObject.GetComponent<BasicEnemy> ().Damage (GetComponent<Rigidbody> ().mass * damage [(int)type]);
+				} else if (c.gameObject.tag == "MrLickums") {
+					c.gameObject.GetComponent<MrLickums> ().Damage (GetComponent<Rigidbody> ().mass * damage [(int)type]);
+				} else if (c.gameObject.tag == "AntEnemy") {
+					c.gameObject.GetComponent<AntEnemy> ().Damage (GetComponent<Rigidbody> ().mass * damage [(int)type]);
+				}	
             }
             else
             {
                 var v = StealMass(0.8f, true) * damage[(int)type];
-                if (c.gameObject.tag == "BasicEnemy")
-                {
-                    c.gameObject.GetComponent<BasicEnemy>().Damage(v);
-                }
-                else if (c.gameObject.tag == "MrLickums")
-                {
-                    c.gameObject.GetComponent<MrLickums>().collectDrop(type);
-                    //c.gameObject.GetComponent<MrLickums>().Damage(v);
-                }
+				if (c.gameObject.tag == "BasicEnemy") {
+					c.gameObject.GetComponent<BasicEnemy> ().Damage (v);
+				} else if (c.gameObject.tag == "MrLickums") {
+					c.gameObject.GetComponent<MrLickums> ().collectDrop (type);
+					//c.gameObject.GetComponent<MrLickums>().Damage(v);
+				} else if (c.gameObject.tag == "AntEnemy") {
+					c.gameObject.GetComponent<AntEnemy> ().Damage (v);
+				}
             }
             /*
             GetComponent<Rigidbody>().isKinematic = true;
@@ -132,19 +130,7 @@ public class Drop : MonoBehaviour {
                 this.transform.position = hitInfo.point;
             }*/
         }
-
-		if (c.gameObject.tag == "AntEnemy") {
-			if (!hitWall && (type == IceCream.White || type == IceCream.Pink)) {
-				var v = GetComponent<Rigidbody> ().velocity * GetComponent<Rigidbody> ().mass * knockback [(int)type];
-				v.y = Mathf.Abs (v.y);
-				c.gameObject.GetComponent<Rigidbody> ().velocity += v;
-
-				c.gameObject.GetComponent<AntEnemy> ().Damage (GetComponent<Rigidbody> ().mass * damage [(int)type]);
-			} else {
-				var v = StealMass (0.8f, true) * damage [(int)type];
-				c.gameObject.GetComponent<AntEnemy> ().Damage (v);
-			}
-		}
+			
     }
 
     void OnTriggerStay(Collider c)

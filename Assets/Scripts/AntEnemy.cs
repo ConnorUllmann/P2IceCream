@@ -116,11 +116,6 @@ public class AntEnemy : Enemy {
 				&& Mathf.Abs(p.transform.rotation.z) == 1) {
 				p.state_machine.ChangeState (new StateAntEnemyDrop (p));
 			}
-
-			// Temporary: handling bounds when enemy should be destroyed
-//			if (p.transform.position.y > 5.9f || p.transform.position.x > 35.8f) {
-//				Destroy (p.gameObject);
-//			}
 		}
 	}
 
@@ -138,9 +133,13 @@ public class AntEnemy : Enemy {
 		}
 
 		public override void OnStart() {
-			p.transform.rotation = Quaternion.identity;
 			p.rb().useGravity = true;
 			p.rb().velocity = new Vector3(0,0,0);
+			if (Player.S.transform.position.x <= p.transform.position.x) {
+				p.transform.rotation = Quaternion.identity;
+			} else {
+				p.transform.rotation = Quaternion.Euler (0, 180, 0);
+			}
 		}
 
 		public override void OnUpdate(float time_delta_fraction)

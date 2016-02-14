@@ -36,7 +36,7 @@ public class ThrownScoop : MonoBehaviour {
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.tag == "Tile" || c.gameObject.tag == "BasicEnemy" || c.gameObject.tag == "MrLickums")
+		if (c.gameObject.tag == "Tile" || c.gameObject.tag == "BasicEnemy" || c.gameObject.tag == "MrLickums" || c.gameObject.tag == "AntEnemy")
         {
             var rb = GetComponent<Rigidbody>();
             var massToReleaseStart = rb.mass;// * (Random.value * 0.9f + 0.1f);

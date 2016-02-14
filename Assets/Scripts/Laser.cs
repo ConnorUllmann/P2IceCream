@@ -4,10 +4,8 @@ using System.Collections;
 public class Laser : MonoBehaviour {
 
 	LineRenderer line;
-	public int counter = 220;
 	public float damage = 1f;
 	public float distance = 3f;
-	public bool laser = true;
 
 	// Use this for initialization
 	void Start () {
@@ -16,55 +14,42 @@ public class Laser : MonoBehaviour {
 		line.SetColors (Color.green, Color.green);
 		line.enabled = false;
 	}
-	
+
+
 	// Update is called once per frame
-	void Update () {
-		if (transform.parent.GetComponent<AntEnemy> ().dropToggle) {
-			DisableLaser ();
+	void Update() {
+		
+	}
+
+	public void Fire(Vector3 targetPos) {
+
+		Ray ray = new Ray (transform.position, targetPos - transform.position);
+		RaycastHit hit;
+
+		line.SetPosition (0, ray.origin);
+
+		if (Physics.Raycast (ray, out hit, distance)) {
+			line.SetPosition (1, hit.point);
+			if (hit.collider.tag == "Drop") {
+				hit.collider.transform.parent.GetComponent<Drop> ().StealMass (0.9f);
+			}
+			if (hit.collider.tag == "Player") {
+				Player.S.Damage (damage);
+			}
 		} else {
-			counter -= 1;
-			if (counter == 0) {
-				laser = true;
-				StartCoroutine (FireLaser ());
-				counter = 220;
-			}
+			line.SetPosition (1, ray.GetPoint (distance));
 		}
 	}
 
-	IEnumerator FireLaser() {
-		for (int i = 0; i < 72; ++i) {
-			if (!laser) {
-				break;
-			}
+	public void ActivateLaser() {
+		if (!line.enabled) {
 			line.enabled = true;
-
-			Ray ray = new Ray (transform.position, -1 * transform.right);
-			RaycastHit hit;
-
-			line.SetPosition (0, ray.origin);
-
-			if (Physics.Raycast (ray, out hit, distance)) {
-				line.SetPosition (1, hit.point);
-				if (hit.collider.tag == "Player") {
-					Player.S.Damage (damage);
-				}
-			} else {
-				line.SetPosition (1, ray.GetPoint (distance));
-			}
-
-			yield return new WaitForSeconds (0.05f);
-			line.enabled = false;
-			transform.Rotate (0, 0, -5);
 		}
-
 	}
 
-	void DisableLaser() {
-		laser = false;
-		StopCoroutine (FireLaser ());
-		line.enabled = false;
-
-		// Reset laser start position
-		transform.rotation = Quaternion.identity;
+	public void DisableLaser() {
+		if (line.enabled) {
+			line.enabled = false;
+		}
 	}
 }
