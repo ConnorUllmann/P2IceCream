@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 
         EnemyManager.S.enemySpawnerGOs.Add(this.gameObject);
 
@@ -29,11 +29,7 @@ public class EnemySpawner : MonoBehaviour {
         stretch = stretchMin;
         UpdatePortalSize();
         // spawns an enemy at the spawn interval
-/*<<<<<<< HEAD
-        //InvokeRepeating("SpawnEnemy", 0, spawnInterval);
-=======
-        InvokeRepeating("ManageSpawn", 0, spawnInterval);
->>>>>>> origin/master*/
+        //InvokeRepeating("ManageSpawn", 0, spawnInterval);
 	}
 
     public GameObject portalEffect;
@@ -67,7 +63,10 @@ public class EnemySpawner : MonoBehaviour {
         if(spawnTimer >= spawnInterval)
         {
             spawnTimer %= spawnInterval;
-            SpawnEnemy();
+            if (spawnQueue.Count != 0) // don't spawn anything if the queue is empty
+            {
+                SpawnEnemy();
+            }
         }
 
         if (open)

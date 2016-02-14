@@ -23,7 +23,7 @@ public class PlayerTrigger : MonoBehaviour {
                 Player.S.topScoopMass += drop.StealMass();
             else if (drop.type == Player.S.middleScoopType)
                 Player.S.middleScoopMass += drop.StealMass();
-            else if (drop.type == Drop.IceCream.Brown)
+            else if (drop.type == Utils.IceCream.Brown)
                 Player.S.AddMass(drop.StealMass());
         }
     }

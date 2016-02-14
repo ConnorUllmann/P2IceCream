@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Utils : MonoBehaviour {
 
+    public enum IceCream { White, Brown, Pink };
+    public enum Connector { None, East, North, NorthEast, West, EastWest, NorthWest,
+        NorthEastWest, South, SouthEast, NorthSouth, NorthSouthEast, SouthWest, SouthEastWest, NorthSouthWest, All};
+
     // Use this for initialization
     void Start() {
 
@@ -11,6 +15,25 @@ public class Utils : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+    }
+
+    public static Connector ConnectsTo(Vector3 pos)
+    {
+        int conn = (CollidesWithTileAt(pos + new Vector3(1, 0)) ? 1 : 0) + // East
+        (CollidesWithTileAt(pos + new Vector3(0, 1)) ? 2 : 0) + // North
+        (CollidesWithTileAt(pos + new Vector3(-1, 0)) ? 4 : 0) + // West
+        (CollidesWithTileAt(pos + new Vector3(0, -1)) ? 8 : 0); // South
+
+        return (Connector)conn;
+    }
+
+    static bool CollidesWithTileAt(Vector3 p)
+    {
+        var c = Physics.OverlapBox(p, new Vector3(0.1f, 0.1f, 0.1f));
+        for (int i = 0; i < c.Length; i++)
+            if (c[i].gameObject.tag == "Tile")
+                return true;
+        return false;
     }
 
     public static int Sign(float x, bool canReturnZero = true)

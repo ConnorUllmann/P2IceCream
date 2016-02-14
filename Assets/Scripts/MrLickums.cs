@@ -116,17 +116,17 @@ public class MrLickums : Enemy
         }
     }
 
-    public void collectDrop(Drop.IceCream flavor)
+    public void collectDrop(Utils.IceCream flavor)
     {
-        if (flavor == Drop.IceCream.Brown)
+        if (flavor == Utils.IceCream.Brown)
         {
             brownCount++;
         }
-        else if (flavor == Drop.IceCream.White)
+        else if (flavor == Utils.IceCream.White)
         {
             whiteCount++;
         }
-        else if (flavor == Drop.IceCream.Pink)
+        else if (flavor == Utils.IceCream.Pink)
         {
             pinkCount++;
         }
@@ -137,19 +137,19 @@ public class MrLickums : Enemy
         if (brownCount > 0)
         {
             GameObject o = Instantiate<GameObject>(dropPrefab);
-            o.GetComponent<Drop>().Initialize(transform.position + Vector3.left, brownCount / 20, Drop.IceCream.Brown);
+            o.GetComponent<Drop>().Initialize(transform.position + Vector3.left, brownCount / 20, Utils.IceCream.Brown);
         }
 
         if (whiteCount > 0)
         {
             GameObject o = Instantiate<GameObject>(dropPrefab);
-            o.GetComponent<Drop>().Initialize(transform.position, whiteCount / 20, Drop.IceCream.White);
+            o.GetComponent<Drop>().Initialize(transform.position, whiteCount / 20, Utils.IceCream.White);
         }
 
         if (pinkCount > 0)
         {
             GameObject o = Instantiate<GameObject>(dropPrefab);
-            o.GetComponent<Drop>().Initialize(transform.position + Vector3.right, pinkCount / 20, Drop.IceCream.Pink);
+            o.GetComponent<Drop>().Initialize(transform.position + Vector3.right, pinkCount / 20, Utils.IceCream.Pink);
         }
     }
 }

@@ -11,23 +11,17 @@ public class EnemyManager : MonoBehaviour {
 
     public static EnemyManager S = null; // the singleton for this class
 
-    public List<GameObject> enemySpawnerGOs; // the actual game objects of the enemy spawners
+    public List<GameObject> enemySpawnerGOs = new List<GameObject>(); // the actual game objects of the enemy spawners
     private int targetDifficulty = 0; // the difficulty that the manager aspires to reach
     private int waveNumber = 0; // this is the current wave number
 
 	// contains initialization subroutines for enemy management
-	void Start() {
+	void Awake() {
         if (S != null) { // if an enemy manager already exists
             Destroy(this);
             return;
         }
         S = this; // set the singleton instance
-
-        // gets the spawner GameObjects by name
-        enemySpawnerGOs = new List<GameObject>();
-        //for (int i = 0; i < enemySpawnerNames.Length; i++) {
-        //    enemySpawnerGOs[i] = GameObject.Find(enemySpawnerNames[i]);
-        //}
 
         // starts wave 1 at start, and starts a new wave at every wave interval
         InvokeRepeating("NewWave", 0, waveInterval);

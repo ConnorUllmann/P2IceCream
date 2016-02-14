@@ -6,7 +6,7 @@ public class ThrownScoop : MonoBehaviour {
     public GameObject diePrefab;
     public GameObject dropPrefab;
     
-    public Drop.IceCream type;
+    public Utils.IceCream type;
     private float scoopMassNormal;
 
     private Vector3 lastPos;
@@ -75,7 +75,7 @@ public class ThrownScoop : MonoBehaviour {
         var rb = GetComponent<Rigidbody>();
         var massToReleaseStart = rb.mass;
         var massToRelease = massToReleaseStart;
-        int numDrops = type == Drop.IceCream.Pink ? (int)(Random.value * 20 + 20) : (int)(Random.value * 5 + 10);
+        int numDrops = type == Utils.IceCream.Pink ? (int)(Random.value * 20 + 20) : (int)(Random.value * 5 + 10);
 
         while (massToRelease > 0)
         {
