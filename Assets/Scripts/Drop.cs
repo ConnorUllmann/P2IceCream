@@ -90,7 +90,7 @@ public class Drop : MonoBehaviour {
     {
         if (attached)
             return;
-		if (c.gameObject.tag == "BasicEnemy" || c.gameObject.tag == "MrLickums" || c.gameObject.tag == "AntEnemy")
+		if (c.gameObject.tag == "BasicEnemy" || c.gameObject.tag == "MrLickums" || c.gameObject.tag == "AntEnemy" || c.gameObject.tag == "Campfire")
         {
             if (!hitWall && (type == Utils.IceCream.White || type == Utils.IceCream.Pink))
             {
@@ -104,7 +104,9 @@ public class Drop : MonoBehaviour {
 					c.gameObject.GetComponent<MrLickums> ().Damage (GetComponent<Rigidbody> ().mass * damage [(int)type]);
 				} else if (c.gameObject.tag == "AntEnemy") {
 					c.gameObject.GetComponent<AntEnemy> ().Damage (GetComponent<Rigidbody> ().mass * damage [(int)type]);
-				}	
+				} else if (c.gameObject.tag == "Campfire") {
+					c.gameObject.GetComponent<Campfire> ().Damage (GetComponent<Rigidbody> ().mass * damage [(int)type]);
+				}
             }
             else
             {
@@ -116,6 +118,8 @@ public class Drop : MonoBehaviour {
 					//c.gameObject.GetComponent<MrLickums>().Damage(v);
 				} else if (c.gameObject.tag == "AntEnemy") {
 					c.gameObject.GetComponent<AntEnemy> ().Damage (v);
+				} else if (c.gameObject.tag == "Campfire") {
+					c.gameObject.GetComponent<Campfire> ().Damage (v);
 				}
             }
             /*

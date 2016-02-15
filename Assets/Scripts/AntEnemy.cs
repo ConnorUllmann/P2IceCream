@@ -135,15 +135,15 @@ public class AntEnemy : Enemy {
 		public override void OnStart() {
 			p.rb().useGravity = true;
 			p.rb().velocity = new Vector3(0,0,0);
-			if (Player.S.transform.position.x <= p.transform.position.x) {
-				p.transform.rotation = Quaternion.identity;
-			} else {
-				p.transform.rotation = Quaternion.Euler (0, 180, 0);
-			}
+			p.transform.rotation = Quaternion.identity;
+
 		}
 
 		public override void OnUpdate(float time_delta_fraction)
 		{
+			if (Player.S.transform.position.x > p.transform.position.x) {
+				p.transform.rotation = Quaternion.Euler (0, 180, 0);
+			}
 			p.sprend ().sprite = p.spriteWalk [(int)Mathf.Abs (totalTime * p.spriteWalkSpeed * p.walkSpeed / p.walkSpeed) % p.spriteWalk.Length];
 			totalTime = Mathf.Max (totalTime + Mathf.Abs (time_delta_fraction), 0);
 
