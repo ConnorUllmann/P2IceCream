@@ -453,6 +453,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11428150, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
+      propertyPath: dropToggle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428150, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
+      propertyPath: campfirePrefab
+      value: 
+      objectReference: {fileID: 172890, guid: db091b520226d4bdd8dd66a147ab1d2f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca3dfab4237964625a3a514d7d390c32, type: 2}
   m_IsPrefabParent: 0

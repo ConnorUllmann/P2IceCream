@@ -10,6 +10,8 @@ public class AntEnemy : Enemy {
 	public float health;
 	public float bounceOffPlayerSpeed = 3f;
 	public bool dropToggle;
+	public int campfireCount = 0;
+	public GameObject campfirePrefab;
 
 	public bool _______________________;
 
@@ -115,6 +117,17 @@ public class AntEnemy : Enemy {
 				&& p.transform.position.y > Player.S.transform.position.y
 				&& Mathf.Abs(p.transform.rotation.z) == 1) {
 				p.state_machine.ChangeState (new StateAntEnemyDrop (p));
+			}
+
+			// Builds campfire
+			++p.campfireCount;
+			if (p.campfireCount >= 200) {
+				if (p.transform.rotation.z == 0) {
+					GameObject campfireGO = Instantiate<GameObject> (p.campfirePrefab);
+					campfireGO.transform.position = p.transform.position;
+				}
+
+				p.campfireCount = 0;
 			}
 		}
 	}

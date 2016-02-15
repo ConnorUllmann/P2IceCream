@@ -18,7 +18,6 @@ public class Campfire : MonoBehaviour {
 	void Start () {
 		fireParticle = transform.Find ("Particle System").GetComponent<ParticleSystem> ();
 		wood = transform.Find ("modelBonfire").GetComponent<SpriteRenderer> ();
-		Debug.Log (fireParticle);
 	}
 	
 	// Update is called once per frame
@@ -39,7 +38,6 @@ public class Campfire : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider c) {
-		Debug.Log (c.gameObject.tag);
 		if (c.gameObject.tag == "Player") {
 			Player.S.Damage (damage);
 		}
