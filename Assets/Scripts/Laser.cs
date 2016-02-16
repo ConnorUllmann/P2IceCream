@@ -20,12 +20,8 @@ public class Laser : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-//		line = gameObject.GetComponent<LineRenderer> ();
-//		line.material = new Material (Shader.Find ("Particles/Additive"));
-//		line.SetColors (Color.green, Color.green);
-//		line.enabled = false;
-	}
 
+	}
 
 	// Update is called once per frame
 	void Update() {
@@ -53,17 +49,14 @@ public class Laser : MonoBehaviour {
 	}
 
 	public void ActivateLaser() {
-		Debug.Log ("enable");
 		if (!line.enabled) {
 			line.enabled = true;
 		}
 	}
 
 	public void DisableLaser() {
-		Debug.Log ("disable" + line.enabled);
 		if (line.enabled) {
 			line.enabled = false;
 		}
-		Debug.Log (line.enabled);
 	}
 }
