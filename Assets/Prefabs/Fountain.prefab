@@ -12,8 +12,7 @@ GameObject:
   - 212: {fileID: 21229776}
   - 114: {fileID: 11435852}
   - 135: {fileID: 13581998}
-  - 114: {fileID: 11492110}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Fountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,23 +62,7 @@ MonoBehaviour:
   amount: 0.5
   dropSize: 0.1
   spawnVelocity: 3
-  dropPrefab: {fileID: 155288, guid: a3e04ac3010204247a8fc717db27df85, type: 2}
---- !u!114 &11492110
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 128676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1576cf84ab1375b4f8a72c3c60154b94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iceCreamType: 0
-  rechargeTime: 10
-  amount: 0.5
-  dropSize: 0.1
-  spawnVelocity: 0.5
+  spawnInterval: 0.1
   dropPrefab: {fileID: 155288, guid: a3e04ac3010204247a8fc717db27df85, type: 2}
 --- !u!135 &13581998
 SphereCollider:
@@ -140,7 +123,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: spawnVelocity
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
