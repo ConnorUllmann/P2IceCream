@@ -6,10 +6,7 @@ public class MrLickums : Enemy
 {
     private static float bounceOffPlayerSpeed = 3f;
 
-    public Sprite[] spriteWalk;
-    public Sprite[] spriteStand;
-    public Sprite spriteAirUp;
-    public Sprite spriteAirDown;
+    public Sprite[] spriteLick;
 
     public float flySpeed;
 
@@ -27,6 +24,14 @@ public class MrLickums : Enemy
     public GameObject dropPrefab;
 
     public bool ______________________;
+
+    // Used to set the values for EnemyManager to different numbers than the base class
+    public void Reset()
+    {
+        difficulty = 3; // the estimated difficulty of this enemy
+        waveRequirement = 5; // the wave at which this enemy begins to spawn
+        spawnWeight = 3; // the relative frequency at which this enemy spawns
+    }
 
     // Use this for initialization
     override public void Start()
@@ -63,10 +68,12 @@ public class MrLickums : Enemy
     public class StateMrLickumsNormal : State
     {
         MrLickums p;
+        private float totalTime;
 
         public StateMrLickumsNormal(MrLickums _p)
         {
             p = _p;
+            totalTime = 0.0f;
         }
 
         public override void OnUpdate(float time_delta_fraction)
@@ -102,6 +109,10 @@ public class MrLickums : Enemy
             {
                 p.rb().velocity = (Player.S.transform.position - p.rb().position).normalized * p.flySpeed;
             }
+
+            p.sprend().sprite = p.spriteLick[(int)Mathf.Abs(totalTime * 8) % p.spriteLick.Length];
+            totalTime = Mathf.Max(totalTime + Mathf.Abs(time_delta_fraction), 0);
+
         }
     }
 

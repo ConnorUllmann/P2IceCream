@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 461074}
   - 198: {fileID: 19825488}
   - 199: {fileID: 19941282}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ GameObject:
   - 135: {fileID: 13592254}
   - 114: {fileID: 11485346}
   - 135: {fileID: 13569370}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: MrLickums
   m_TagString: MrLickums
   m_Icon: {fileID: 0}
@@ -93,21 +93,24 @@ MonoBehaviour:
   spawnWeight: 10
   direction: 1
   grounded: 1
-  spriteWalk:
-  - {fileID: 21300012, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  - {fileID: 21300014, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  - {fileID: 21300016, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  - {fileID: 21300018, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  spriteStand:
-  - {fileID: 21300000, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  - {fileID: 21300002, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  - {fileID: 21300004, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  - {fileID: 21300006, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  spriteAirUp: {fileID: 21300008, guid: 4250fc5827f5293439220cf396647366, type: 3}
-  spriteAirDown: {fileID: 21300010, guid: 4250fc5827f5293439220cf396647366, type: 3}
+  spriteLick:
+  - {fileID: 21300004, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300006, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300008, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300010, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300012, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300014, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300016, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300018, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300016, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300014, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300012, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300010, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300008, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
+  - {fileID: 21300006, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
   flySpeed: 1
   damage: 1
-  health: 3
+  health: 1
   moveWaitTime: 0
   moveWaitTimer: 0
   stuckOnWall: 0
@@ -1706,7 +1709,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 41e83fbf528fdd14ea3b30f289542f5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1719,9 +1722,96 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: spriteLick.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SortingOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300004, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300006, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300008, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300010, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300012, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300014, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300016, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300018, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300016, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[9]
+      value: 
+      objectReference: {fileID: 21300014, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[10]
+      value: 
+      objectReference: {fileID: 21300012, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[11]
+      value: 
+      objectReference: {fileID: 21300010, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[12]
+      value: 
+      objectReference: {fileID: 21300008, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[13]
+      value: 
+      objectReference: {fileID: 21300006, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: spriteLick.Array.data[14]
+      value: 
+      objectReference: {fileID: 21300004, guid: 41e83fbf528fdd14ea3b30f289542f5b,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 190234}

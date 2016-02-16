@@ -1,10 +1,19 @@
 fileFormatVersion: 2
 guid: 41e83fbf528fdd14ea3b30f289542f5b
-timeCreated: 1455145684
+timeCreated: 1455470095
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: mrlickums_0
+    21300002: mrlickums_1
+    21300004: mrlickums_2
+    21300006: mrlickums_3
+    21300008: mrlickums_4
+    21300010: mrlickums_5
+    21300012: mrlickums_6
+    21300014: mrlickums_7
+    21300016: mrlickums_8
+    21300018: mrlickums_9
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -45,7 +54,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 24
+  spritePixelsToUnits: 20
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
@@ -55,11 +64,110 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 1
+        y: 2
         width: 19
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_3
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_4
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_5
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_6
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_7
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_8
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mrlickums_9
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 2
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     outline: []
