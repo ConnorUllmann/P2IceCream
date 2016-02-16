@@ -111,11 +111,13 @@ MonoBehaviour:
   spriteWalkSpeed: 10
   walkSpeed: 1.5
   damage: 1
-  health: 0.48612738
+  health: 0.6
   bounceOffPlayerSpeed: 3
   dropToggle: 0
   campfireCount: 0
   campfirePrefab: {fileID: 172890, guid: db091b520226d4bdd8dd66a147ab1d2f, type: 2}
+  dropAmount: 0.05
+  dropPrefab: {fileID: 155288, guid: a3e04ac3010204247a8fc717db27df85, type: 2}
   dropAttack: 1
   laserAttack: 0
   campfireAttack: 0
@@ -189,6 +191,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: dropAttack
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: dropPrefab
+      value: 
+      objectReference: {fileID: 155288, guid: a3e04ac3010204247a8fc717db27df85, type: 2}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: dropAmount
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

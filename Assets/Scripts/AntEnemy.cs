@@ -12,6 +12,8 @@ public class AntEnemy : Enemy {
 	public bool dropToggle;
 	public int campfireCount = 0;
 	public GameObject campfirePrefab;
+	public float dropAmount = 0.1f;
+	public GameObject dropPrefab;
 
 	public bool dropAttack;
 	public bool laserAttack;
@@ -44,6 +46,7 @@ public class AntEnemy : Enemy {
 			StartCoroutine (Flash ());
 			if (health <= 0) {
 				Player.Screenshake (0.3f, 1);
+				LeaveDrops ();
 				Destroy (this.gameObject);
 			}
 		}
@@ -72,6 +75,28 @@ public class AntEnemy : Enemy {
 		}
 	}
 
+	public void LeaveDrops() {
+		int rand = Random.Range (1, 4);
+		float total = 0;
+		while (total <= dropAmount) {
+			float dropS = Random.Range (0.01f, 0.05f);
+			Vector3 pos = transform.position + new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
+			GameObject dropGO = Instantiate<GameObject> (dropPrefab);
+			switch (rand) {
+			case 1:
+				dropGO.GetComponent<Drop> ().Initialize (pos, dropS, Utils.IceCream.White);
+				break;
+			case 2:
+				dropGO.GetComponent<Drop> ().Initialize (pos, dropS, Utils.IceCream.Pink);
+				break;
+			case 3:
+				dropGO.GetComponent<Drop> ().Initialize (pos, dropS, Utils.IceCream.Brown);
+				break;
+			}
+			dropAmount -= dropS;
+		}
+	}
+
 	public class StateAntEnemyNormal : State
 	{
 		AntEnemy p;
@@ -97,7 +122,6 @@ public class AntEnemy : Enemy {
 		public override void OnUpdate(float time_delta_fraction)
 		{
 			var vel = p.rb ().velocity;
-			bool moveTo = true; // Whether the enemy should attempt to move
 
 			RaycastHit hitInfo;
 			var hit = Physics.Raycast (p.transform.position, -1 * p.transform.right, out hitInfo, 0.55f, p.tilePhysicsLayerMask);
@@ -133,7 +157,7 @@ public class AntEnemy : Enemy {
 			// Builds campfire
 			if (p.campfireAttack) {
 				++p.campfireCount;
-				if (p.campfireCount >= 200) {
+				if (p.campfireCount >= 250) {
 					if (p.transform.rotation.z == 0) {
 						GameObject campfireGO = Instantiate<GameObject> (p.campfirePrefab);
 						campfireGO.transform.position = p.transform.position;
