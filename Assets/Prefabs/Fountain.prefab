@@ -62,7 +62,7 @@ MonoBehaviour:
   rechargeTime: 10
   amount: 0.5
   dropSize: 0.1
-  spawnVelocity: 0.5
+  spawnVelocity: 3
   dropPrefab: {fileID: 155288, guid: a3e04ac3010204247a8fc717db27df85, type: 2}
 --- !u!114 &11492110
 MonoBehaviour:
@@ -137,6 +137,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: dropSize
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnVelocity
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
