@@ -112,7 +112,8 @@ public class Fountain : MonoBehaviour {
             drop.GetComponent<Drop>().type = this.iceCreamType; // ice cream type
             drop.transform.position = this.transform.position; // position
             drop.GetComponent<Rigidbody>().mass = this.dropSize; // mass
-            drop.GetComponent<Rigidbody>().velocity = RandomizeSpray() * spawnVelocity; // correct the drop's spray direction and velocity
+            drop.GetComponent<Rigidbody>().velocity = RandomizeSpray() * spawnVelocity; // spray direction and velocity
+
             amountSpawned += this.dropSize; // track how much has been dropped
         }
         Discharge(); // mark the fountain as used
