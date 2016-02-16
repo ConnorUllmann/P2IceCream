@@ -13,15 +13,12 @@ public class Laser : MonoBehaviour {
 	public bool _____________________;
 
 	public Vector3 target;
-	private List<GameObject> destruction;
 
 	void Awake() {
 		line = gameObject.GetComponent<LineRenderer> ();
 		line.material = new Material (Shader.Find ("Particles/Additive"));
 		line.SetColors (Color.green, Color.green);
 		line.enabled = false;
-
-		destruction = new List<GameObject> ();
 	}
 
 	// Use this for initialization
@@ -32,15 +29,6 @@ public class Laser : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		line.SetPosition (0, transform.position);
-
-		// Handle laser destruction effect
-		for (int i = 0; i < destruction.Count; ++i) {
-			if (!destruction [i].GetComponent<ParticleSystem> ().IsAlive ()) {
-				GameObject toDestroy = destruction [i];
-				destruction.RemoveAt (i--);
-				Destroy (toDestroy.gameObject);
-			}
-		}
 	}
 
 	public void Fire(Vector3 targetPos) {
@@ -53,7 +41,7 @@ public class Laser : MonoBehaviour {
 			if (hit.collider.tag == "Drop") {
 				GameObject destructGO = Instantiate<GameObject> (destructionPrefab);
 				destructGO.transform.position = hit.point;
-				destruction.Add (destructGO);
+				Destroy (destructGO, 1.0f);
 				hit.collider.transform.parent.GetComponent<Drop> ().StealMass (0.9f);
 			}
 			if (hit.collider.tag == "Player") {
