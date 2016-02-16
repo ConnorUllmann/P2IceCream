@@ -83,6 +83,11 @@ public class AntEnemy : Enemy {
 
 		public override void OnStart() {
 			p.rb ().useGravity = false;
+			if (Player.S.transform.position.x > p.transform.position.x) {
+				p.transform.rotation = Quaternion.Euler (0, 180, 0);
+			} else {
+				p.transform.rotation = Quaternion.identity;
+			}
 		}
 
 		public override void OnUpdate(float time_delta_fraction)
@@ -91,11 +96,13 @@ public class AntEnemy : Enemy {
 			bool moveTo = true; // Whether the enemy should attempt to move
 
 			RaycastHit hitInfo;
-			var hit = Physics.Raycast (p.transform.position, -1 * p.transform.right, out hitInfo, 0.5f, p.tilePhysicsLayerMask);
+			var hit = Physics.Raycast (p.transform.position, -1 * p.transform.right, out hitInfo, 0.55f, p.tilePhysicsLayerMask);
 
 			if (hit) {
-				p.transform.Rotate (0, 0, 270);
-				prevAction = 2;
+				if (prevAction != 2) {
+					p.transform.Rotate (0, 0, 270);
+					prevAction = 2;
+				}
 			} else if (p.grounded) {
 				prevAction = 1;
 			} else {
@@ -115,7 +122,7 @@ public class AntEnemy : Enemy {
 
 			if (Mathf.Abs (p.transform.position.x - Player.S.transform.position.x) <= 0.5
 				&& p.transform.position.y > Player.S.transform.position.y
-				&& Mathf.Abs(p.transform.rotation.z) == 1) {
+				&& Vector3.Dot(p.transform.up, Vector3.up) < 0) {
 				p.state_machine.ChangeState (new StateAntEnemyDrop (p));
 			}
 
@@ -149,14 +156,11 @@ public class AntEnemy : Enemy {
 			p.rb().useGravity = true;
 			p.rb().velocity = new Vector3(0,0,0);
 			p.transform.rotation = Quaternion.identity;
-
+			p.transform.Find ("Gun").GetComponent<Laser> ().DisableLaser ();
 		}
 
 		public override void OnUpdate(float time_delta_fraction)
 		{
-			if (Player.S.transform.position.x > p.transform.position.x) {
-				p.transform.rotation = Quaternion.Euler (0, 180, 0);
-			}
 			p.sprend ().sprite = p.spriteWalk [(int)Mathf.Abs (totalTime * p.spriteWalkSpeed * p.walkSpeed / p.walkSpeed) % p.spriteWalk.Length];
 			totalTime = Mathf.Max (totalTime + Mathf.Abs (time_delta_fraction), 0);
 

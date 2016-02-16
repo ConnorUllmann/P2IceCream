@@ -29,7 +29,7 @@ public class LaserRange : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider c) {
-		if (c.gameObject.tag == "Player") {
+		if (c.gameObject.tag == "Drop" || c.gameObject.tag == "Player") {
 			laser.Fire (c.transform.position);
 		}
 	}

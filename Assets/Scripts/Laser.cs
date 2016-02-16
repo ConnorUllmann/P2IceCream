@@ -7,6 +7,10 @@ public class Laser : MonoBehaviour {
 	public float damage = 1f;
 	public float distance = 3f;
 
+	public bool _____________________;
+
+	public Vector3 target;
+
 	// Use this for initialization
 	void Start () {
 		line = gameObject.GetComponent<LineRenderer> ();
@@ -18,7 +22,7 @@ public class Laser : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		
+		line.SetPosition (0, transform.position);
 	}
 
 	public void Fire(Vector3 targetPos) {
@@ -26,10 +30,9 @@ public class Laser : MonoBehaviour {
 		Ray ray = new Ray (transform.position, targetPos - transform.position);
 		RaycastHit hit;
 
-		line.SetPosition (0, ray.origin);
-
 		if (Physics.Raycast (ray, out hit, distance)) {
-			line.SetPosition (1, hit.point);
+			target = hit.point;
+			line.SetPosition (1, target);
 			if (hit.collider.tag == "Drop") {
 				hit.collider.transform.parent.GetComponent<Drop> ().StealMass (0.9f);
 			}
@@ -37,7 +40,8 @@ public class Laser : MonoBehaviour {
 				Player.S.Damage (damage);
 			}
 		} else {
-			line.SetPosition (1, ray.GetPoint (distance));
+			target = ray.GetPoint (distance);
+			line.SetPosition (1, target);
 		}
 	}
 

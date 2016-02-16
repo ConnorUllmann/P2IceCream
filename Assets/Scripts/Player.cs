@@ -50,9 +50,13 @@ public class Player : MonoBehaviour {
 
     private float lastTime;
 
+	void Awake() {
+		S = this;
+	}
+
     // Use this for initialization
     void Start () {
-        S = this;
+//        S = this;
         normalRadius = GetComponent<SphereCollider>().radius;
         normalMass = rb().mass;
         state_machine.ChangeState(new StatePlayerMove(this));
