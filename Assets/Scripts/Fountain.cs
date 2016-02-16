@@ -8,8 +8,10 @@ public class Fountain : MonoBehaviour {
     public float amount = 0.5f; // the total mass of ice cream that drops on activation
     public float dropSize = 0.01f; // the mass of each ice cream droplet
     public float spawnVelocity = 0.5f; // the speed with which the ice cream droplets are expelled
+    public float spawnInterval = 0.1f; // the amount of time between droplet spawns
     public GameObject dropPrefab; // the drop prefab
 
+    private float amountDropped = 0f; // the amount of ice cream dropped since last recharge
     private bool recharged = true;
     private Vector3 sprayDirection; // the direction in which to spray ice cream
 
@@ -104,19 +106,27 @@ public class Fountain : MonoBehaviour {
         if (!recharged) {
             return; // don't spawn ice cream if the fountain isn't charged
         }
-        float amountSpawned = 0f;
-        while (amountSpawned < this.amount) { // until the correct amount of ice cream has been dropped
-            GameObject drop = Instantiate(dropPrefab); // instantiate a drop
-            drop.GetComponent<Drop>().Initialize(this.transform.position, this.dropSize, this.iceCreamType); // tell the drop its parameters
-            //initialize the drop's parameters
-            drop.GetComponent<Drop>().type = this.iceCreamType; // ice cream type
-            drop.transform.position = this.transform.position; // position
-            drop.GetComponent<Rigidbody>().mass = this.dropSize; // mass
-            drop.GetComponent<Rigidbody>().velocity = RandomizeSpray() * spawnVelocity; // spray direction and velocity
+        InvokeRepeating("spawnDrop", 0.0f, this.spawnInterval); // start dropping ice cream
+    }
 
-            amountSpawned += this.dropSize; // track how much has been dropped
+    void spawnDrop()
+    {
+        GameObject drop = Instantiate(dropPrefab); // instantiate a drop
+        drop.GetComponent<Drop>().Initialize(this.transform.position, this.dropSize, this.iceCreamType); // tell the drop its parameters
+        //initialize the drop's parameters
+        drop.GetComponent<Drop>().type = this.iceCreamType; // ice cream type
+        drop.transform.position = this.transform.position; // position
+        drop.GetComponent<Rigidbody>().mass = this.dropSize; // mass
+        drop.GetComponent<Rigidbody>().velocity = RandomizeSpray() * spawnVelocity; // spray direction and velocity
+
+        this.amountDropped += this.dropSize; // track how much has been dropped
+
+        if (this.amountDropped > this.amount) // if enough droplets have spawned
+        {
+            // complete the drop process
+            CancelInvoke("spawnDrop"); // stop dropping
+            Discharge(); // mark the fountain as used
+            Invoke("Recharge", this.rechargeTime); // recharge the fountain in 10 seconds
         }
-        Discharge(); // mark the fountain as used
-        Invoke("Recharge", this.rechargeTime); // recharge the fountain in 10 seconds
     }
 }
