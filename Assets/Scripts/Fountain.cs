@@ -107,7 +107,11 @@ public class Fountain : MonoBehaviour {
         float amountSpawned = 0f;
         while (amountSpawned < this.amount) { // until the correct amount of ice cream has been dropped
             GameObject drop = Instantiate(dropPrefab); // instantiate a drop
-            drop.GetComponent<Drop>().Initialize(this.transform.position, this.dropSize, this.iceCreamType); // initialize the drop with the correct parameters
+            drop.GetComponent<Drop>().Initialize(this.transform.position, this.dropSize, this.iceCreamType); // tell the drop its parameters
+            //initialize the drop's parameters
+            drop.GetComponent<Drop>().type = this.iceCreamType; // ice cream type
+            drop.transform.position = this.transform.position; // position
+            drop.GetComponent<Rigidbody>().mass = this.dropSize; // mass
             drop.GetComponent<Rigidbody>().velocity = RandomizeSpray() * spawnVelocity; // correct the drop's spray direction and velocity
             amountSpawned += this.dropSize; // track how much has been dropped
         }

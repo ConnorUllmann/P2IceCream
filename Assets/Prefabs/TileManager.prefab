@@ -42,6 +42,7 @@ MonoBehaviour:
   tilePrefab: {fileID: 139618, guid: 2b8b09573bddc554c989e6ffeb8bde1c, type: 2}
   playerPrefab: {fileID: 170884, guid: 154de071eb96f5347b518107db195640, type: 2}
   enemySpawnerPrefab: {fileID: 175806, guid: ec093b270eecff04eafa26c7747863f1, type: 2}
+  fountainPrefab: {fileID: 128676, guid: 894e093e67d9f2d4fb4839f6cef87544, type: 2}
   levelAsset: {fileID: 4900000, guid: e3ca2715faa659747b149cf5375779ea, type: 3}
   ______________________________: 0
 --- !u!1001 &100100000
@@ -50,7 +51,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: fountainPrefab
+      value: 
+      objectReference: {fileID: 128676, guid: 894e093e67d9f2d4fb4839f6cef87544, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164344}

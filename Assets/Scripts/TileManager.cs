@@ -7,6 +7,7 @@ public class TileManager : MonoBehaviour {
     public GameObject tilePrefab;
     public GameObject playerPrefab;
     public GameObject enemySpawnerPrefab;
+    public GameObject fountainPrefab;
     public TextAsset levelAsset; // this is the file containing the level that will be loaded
 
     public bool ______________________________;
@@ -16,6 +17,10 @@ public class TileManager : MonoBehaviour {
     Color32 tileColor = new Color32(0, 0, 0, 255); // black
     Color32 enemySpawnColor = new Color32(255, 0, 0, 255); // red
     Color32 airColor = new Color32(255, 255, 255, 255); // white
+    Color32 vanillaColor = new Color32(255, 255, 0, 255); // yellow
+    Color32 pinkColor = new Color32(255, 0, 255, 255); // purple
+    Color32 brownColor = new Color32(0, 0, 255, 255); // blue
+
     int spawnerCount = 0;
 
     void Awake()
@@ -68,8 +73,24 @@ public class TileManager : MonoBehaviour {
         else if (color.Equals(airColor)) {
             return null;
         }
+        else if (color.Equals(pinkColor)) {
+            GameObject prefab = fountainPrefab;
+            prefab.GetComponent<Fountain>().iceCreamType = Utils.IceCream.Pink;
+            return prefab;
+        }
+        else if (color.Equals(vanillaColor)) {
+            GameObject prefab = fountainPrefab;
+            prefab.GetComponent<Fountain>().iceCreamType = Utils.IceCream.White;
+            return prefab;
+        }
+        else if (color.Equals(brownColor)) {
+            GameObject prefab = fountainPrefab;
+            prefab.GetComponent<Fountain>().iceCreamType = Utils.IceCream.Brown;
+            return prefab;
+        }
         else {
             print("An unrecognized color was found in the map! Something is wrong!");
+            print(color);
             return null;
         }
     }
