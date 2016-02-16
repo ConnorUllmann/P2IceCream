@@ -7,6 +7,7 @@ public class Fountain : MonoBehaviour {
     public float rechargeTime = 10f; // the amount of time it takes to recharge the fountain
     public float amount = 0.5f; // the total mass of ice cream that drops on activation
     public float dropSize = 0.01f; // the mass of each ice cream droplet
+    public float spawnVelocity = 0.5f; // the speed with which the ice cream droplets are expelled
     public GameObject dropPrefab; // the drop prefab
 
     private bool recharged = true;
@@ -91,6 +92,14 @@ public class Fountain : MonoBehaviour {
         }
     }
 
+    Vector3 RandomizeSpray()
+    {
+        Vector3 direction = this.sprayDirection; // get the initial direction
+        float rotation = Random.Range(-45f, 45f); // get a random angle
+        direction = Quaternion.Euler(0, 0, rotation) * direction; // apply the random rotation to the spray direction
+        return direction;
+    }
+
     void dropIceCream() {
         if (!recharged) {
             return; // don't spawn ice cream if the fountain isn't charged
@@ -99,7 +108,7 @@ public class Fountain : MonoBehaviour {
         while (amountSpawned < this.amount) { // until the correct amount of ice cream has been dropped
             GameObject drop = Instantiate(dropPrefab); // instantiate a drop
             drop.GetComponent<Drop>().Initialize(this.transform.position, this.dropSize, this.iceCreamType); // initialize the drop with the correct parameters
-            drop.GetComponent<Rigidbody>().velocity = this.sprayDirection; // spray the drop in the correct direction
+            drop.GetComponent<Rigidbody>().velocity = RandomizeSpray() * spawnVelocity; // correct the drop's spray direction and velocity
             amountSpawned += this.dropSize; // track how much has been dropped
         }
         Discharge(); // mark the fountain as used
