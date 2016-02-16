@@ -61,8 +61,9 @@ MonoBehaviour:
   iceCreamType: 0
   rechargeTime: 10
   amount: 0.5
-  dropSize: 0.01
-  dropPrefab: {fileID: 0}
+  dropSize: 0.1
+  spawnVelocity: 0.5
+  dropPrefab: {fileID: 155288, guid: a3e04ac3010204247a8fc717db27df85, type: 2}
 --- !u!114 &11492110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,7 +78,8 @@ MonoBehaviour:
   iceCreamType: 0
   rechargeTime: 10
   amount: 0.5
-  dropSize: 0.01
+  dropSize: 0.1
+  spawnVelocity: 0.5
   dropPrefab: {fileID: 155288, guid: a3e04ac3010204247a8fc717db27df85, type: 2}
 --- !u!135 &13581998
 SphereCollider:
@@ -132,6 +134,10 @@ Prefab:
       propertyPath: dropPrefab
       value: 
       objectReference: {fileID: 155288, guid: a3e04ac3010204247a8fc717db27df85, type: 2}
+    - target: {fileID: 0}
+      propertyPath: dropSize
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 128676}
