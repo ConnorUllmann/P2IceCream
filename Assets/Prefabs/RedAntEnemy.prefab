@@ -203,6 +203,9 @@ MonoBehaviour:
   dropToggle: 0
   campfireCount: 0
   campfirePrefab: {fileID: 172890, guid: db091b520226d4bdd8dd66a147ab1d2f, type: 2}
+  dropAttack: 1
+  laserAttack: 1
+  campfireAttack: 1
   _______________________: 0
   tilePhysicsLayerMask: 0
 --- !u!114 &11454908
@@ -320,6 +323,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: difficulty
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: dropAttack
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: laserAttack
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: campfireAttack
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

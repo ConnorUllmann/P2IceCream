@@ -8,28 +8,34 @@ public class LaserRange : MonoBehaviour {
 
 	private List<GameObject> hitObject;
 
-	// Use this for initialization
-	void Start () {
+	void Awake() {
 		laser = transform.parent.Find ("Gun").GetComponent<Laser> ();
 
 		hitObject = new List<GameObject> ();
 	}
 
+	// Use this for initialization
+	void Start () {
+
+	}
+
 	// Update is called once per frame
 	void Update () {
+		for (int i = 0; i < hitObject.Count; i++) {
+			if (hitObject [i] == null) {
+				hitObject.RemoveAt (i--);
+			}
+		}
 
+		if (hitObject.Count == 0) {
+			laser.DisableLaser ();
+		}
 	}
 
 	void OnTriggerEnter(Collider c) {
 		if (c.gameObject.tag == "Drop" || c.gameObject.tag == "Player") {
 			hitObject.Add (c.gameObject);
 			laser.ActivateLaser ();
-			laser.Fire (c.transform.position);
-		}
-	}
-
-	void OnTriggerStay(Collider c) {
-		if (c.gameObject.tag == "Drop" || c.gameObject.tag == "Player") {
 			laser.Fire (c.transform.position);
 		}
 	}

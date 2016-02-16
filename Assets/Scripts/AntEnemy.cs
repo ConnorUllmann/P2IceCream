@@ -13,6 +13,10 @@ public class AntEnemy : Enemy {
 	public int campfireCount = 0;
 	public GameObject campfirePrefab;
 
+	public bool dropAttack;
+	public bool laserAttack;
+	public bool campfireAttack;
+
 	public bool _______________________;
 
 	public int tilePhysicsLayerMask;
@@ -120,21 +124,23 @@ public class AntEnemy : Enemy {
 			p.rb ().velocity = vel;
 			totalTime = Mathf.Max (totalTime + Mathf.Abs (time_delta_fraction), 0);
 
-			if (Mathf.Abs (p.transform.position.x - Player.S.transform.position.x) <= 0.5
+			if (p.dropAttack && Mathf.Abs (p.transform.position.x - Player.S.transform.position.x) <= 0.5
 				&& p.transform.position.y > Player.S.transform.position.y
 				&& Vector3.Dot(p.transform.up, Vector3.up) < 0) {
 				p.state_machine.ChangeState (new StateAntEnemyDrop (p));
 			}
 
 			// Builds campfire
-			++p.campfireCount;
-			if (p.campfireCount >= 200) {
-				if (p.transform.rotation.z == 0) {
-					GameObject campfireGO = Instantiate<GameObject> (p.campfirePrefab);
-					campfireGO.transform.position = p.transform.position;
-				}
+			if (p.campfireAttack) {
+				++p.campfireCount;
+				if (p.campfireCount >= 200) {
+					if (p.transform.rotation.z == 0) {
+						GameObject campfireGO = Instantiate<GameObject> (p.campfirePrefab);
+						campfireGO.transform.position = p.transform.position;
+					}
 
-				p.campfireCount = 0;
+					p.campfireCount = 0;
+				}
 			}
 		}
 	}
@@ -156,7 +162,9 @@ public class AntEnemy : Enemy {
 			p.rb().useGravity = true;
 			p.rb().velocity = new Vector3(0,0,0);
 			p.transform.rotation = Quaternion.identity;
-			p.transform.Find ("Gun").GetComponent<Laser> ().DisableLaser ();
+			if (p.laserAttack) {
+				p.transform.Find ("Gun").GetComponent<Laser> ().DisableLaser ();
+			}
 		}
 
 		public override void OnUpdate(float time_delta_fraction)

@@ -30,6 +30,9 @@ public class Campfire : MonoBehaviour {
 			health -= _damage;
 			fireParticle.startSize = health;
 			GetComponent<CapsuleCollider> ().radius = 0.2f * health;
+			if (GetComponent<CapsuleCollider> ().radius < 0) {
+				GetComponent<CapsuleCollider> ().radius = 0;
+			}
 			if (health <= 0) {
 				Debug.Log ("Start");
 				LeaveDrops ();

@@ -11,12 +11,19 @@ public class Laser : MonoBehaviour {
 
 	public Vector3 target;
 
-	// Use this for initialization
-	void Start () {
+	void Awake() {
 		line = gameObject.GetComponent<LineRenderer> ();
 		line.material = new Material (Shader.Find ("Particles/Additive"));
 		line.SetColors (Color.green, Color.green);
 		line.enabled = false;
+	}
+
+	// Use this for initialization
+	void Start () {
+//		line = gameObject.GetComponent<LineRenderer> ();
+//		line.material = new Material (Shader.Find ("Particles/Additive"));
+//		line.SetColors (Color.green, Color.green);
+//		line.enabled = false;
 	}
 
 
@@ -46,14 +53,17 @@ public class Laser : MonoBehaviour {
 	}
 
 	public void ActivateLaser() {
+		Debug.Log ("enable");
 		if (!line.enabled) {
 			line.enabled = true;
 		}
 	}
 
 	public void DisableLaser() {
+		Debug.Log ("disable" + line.enabled);
 		if (line.enabled) {
 			line.enabled = false;
 		}
+		Debug.Log (line.enabled);
 	}
 }
